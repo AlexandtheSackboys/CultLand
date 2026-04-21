@@ -4,6 +4,7 @@
 #include "WaveSpawner.h"
 
 
+
 // Sets default values
 AWaveSpawner::AWaveSpawner()
 {

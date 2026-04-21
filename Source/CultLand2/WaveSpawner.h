@@ -1,5 +1,21 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+// ----------------------------------------------------------	
+// Script (Header and Source files) Name: [WaveSpawner]
+// 
+// Author: [Alex Costin]
+// 
+// Editors: []
+// 
+// Description: [the Wave Spawner class responsible for spawning enemy waves]
+// 
+// creation Date: [20/04/26]
+// 
+// last edited: [21/04/26 by Alex Costin]
+// 
+// Editors Contributions: []
+// ----------------------------------------------------------	
+
 #pragma once
 
 #include "CoreMinimal.h"
@@ -13,7 +29,8 @@ class CULTLAND2_API AWaveSpawner : public AActor
 	
 public:	
 	// Sets default values for this actor's properties
-	
+
+
 	AWaveSpawner();
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
