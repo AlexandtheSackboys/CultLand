@@ -11,7 +11,7 @@
 // 
 // creation Date: [21/4/2026]
 // 
-// last edited: [25/03/26 by Charlie Wargent]
+// last edited: [22/04/26 by Charlie Wargent]
 // 
 // Editors Contributions: []
 // ----------------------------------------------------------	
@@ -42,6 +42,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile Stats")
 	float AreaOfEffectRadius;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile Bools")
+	bool bIsHitscan;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile Bools")
+	bool bIsProjectile;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile Juice")
 	TArray<USoundBase*> FireSound;
