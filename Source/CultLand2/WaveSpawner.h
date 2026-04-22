@@ -42,9 +42,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup")
 	TSubclassOf<AActor> _enemyActor;
 
+	// determines the amount of enemies that will spawn in each wave
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	int _enemiesPerWave;
 
+	// the time between the llast and next wave
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	float _spawnDelay;
 
@@ -54,12 +56,13 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// determines the amount of enemies currently in the wave
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	int CurrentEnemyCount;
 	
-	
+	// determines the wave number
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
-	int WaveNumber;
+	int WaveNumber = 1;
 
 
 
