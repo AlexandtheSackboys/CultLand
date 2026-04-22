@@ -18,16 +18,18 @@ void AWaveSpawner::SpawnWave()
 	if(CurrentEnemyCount <= 0)
 	{
 		
-		while(_enemiesPerWave > 0)
+		for(int enemiesSpawned = 0; enemiesSpawned < _enemiesPerWave; enemiesSpawned++)
 		{
 			float SpawnIncrement =  FMath::FRandRange(-600.0f, 600.0f);
 			FVector SpawnPos = FVector(GetActorLocation().X + SpawnIncrement, GetActorLocation().Y + SpawnIncrement, GetActorLocation().Z);
 			GetWorld()->SpawnActor<AActor>(_enemyActor, SpawnPos, GetActorRotation());
 
-			_enemiesPerWave--;
+			
 		}
+#
 
 		WaveNumber = WaveNumber + 1;
+		CurrentEnemyCount = _enemiesPerWave;
 	}
 
 
