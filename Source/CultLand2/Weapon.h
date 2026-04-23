@@ -5,6 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerStart.h"
+#include "UWeaponData.h"
+#include "Camera/CameraComponent.h"
+#include "Public/HitScanBase.h"
 #include "Weapon.generated.h"
 
 UCLASS()
@@ -20,19 +23,38 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	void Shoot();
-	void Reload();
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
+	UUWeaponData* WeaponData;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "References")
+	UCameraComponent* PlayerCam;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileType")
+	UHitScanBase* HitScanner;
+
+	UPROPERTY(BlueprintReadOnly)
+	int currentAmmoCount = 100;
+
+	UPROPERTY(BlueprintReadOnly)
+	int currentAmmoInMag = 32;
+
+	FVector CurrentEndPoint = FVector(0.f, 0.f, 0.f);
+
+	UFUNCTION(BlueprintCallable)
+	void ShootWeapon();
+
+	UFUNCTION(BlueprintCallable)
+	void ReloadWeapon();
+
 private:
 	bool can_fire = true;
-	int ammoCount = 100;
-	int ammoPerMag = 32;
-	int currentAmmoInMag = 32;
+
 	float accumulation = 0.f;
-	float timeBetweenShots = 0.5f;
+
+	FVector DetermineEndPoint(const UCameraComponent* const cam);
 
 };

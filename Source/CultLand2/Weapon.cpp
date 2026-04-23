@@ -8,7 +8,6 @@ AWeapon::AWeapon()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts or when spawned
@@ -16,33 +15,33 @@ void AWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	currentAmmoCount = WeaponData->MaxAmmoCount;
 }
 
-void AWeapon::Shoot()
+void AWeapon::ShootWeapon()
 {
-	if (accumulation < timeBetweenShots) return;
+	if (accumulation < WeaponData->FireRate) return;
 	if (currentAmmoInMag < 0) 
 	{
-		Reload();
+		ReloadWeapon();
 		return;
 	}
 	currentAmmoInMag -= 1;
-	//TO DO: Spawn projectile here
-	//GetWorld()->SpawnActor<T>()
+	if (WeaponData->ProjectileData->bIsHitscan) HitScanner->DrawHitRay(CurrentEndPoint);
 
 }
 
-void AWeapon::Reload()
+void AWeapon::ReloadWeapon()
 {
-	if (currentAmmoInMag == ammoPerMag) return;
-	ammoCount -= ammoPerMag - currentAmmoInMag;
+	if (currentAmmoInMag == WeaponData->MagazineSize) return;
+	currentAmmoCount -= WeaponData->MagazineSize - currentAmmoInMag;
 
-	currentAmmoInMag = ammoPerMag;
+	currentAmmoInMag = WeaponData->MagazineSize;
 
-	if (ammoCount < 0) 
+	if (currentAmmoCount < 0) 
 	{
-		currentAmmoInMag -= ammoCount;
-		ammoCount = 0;
+		currentAmmoInMag -= currentAmmoCount;
+		currentAmmoCount = 0;
 	}
 }
 
@@ -53,5 +52,15 @@ void AWeapon::Tick(float DeltaTime)
 
 	accumulation += DeltaTime;
 
+	CurrentEndPoint = DetermineEndPoint(PlayerCam);
+
+}
+
+FVector AWeapon::DetermineEndPoint(const UCameraComponent* const cam)
+{
+	FHitResult result;
+	GetWorld()->LineTraceSingleByChannel(result, GetActorForwardVector(), cam->GetForwardVector() * WeaponData->Range, ECollisionChannel::ECC_Visibility);
+	if (result.bBlockingHit) return result.ImpactPoint;
+	else return result.TraceEnd;
 }
 
