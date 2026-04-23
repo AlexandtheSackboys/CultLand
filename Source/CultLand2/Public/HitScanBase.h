@@ -1,5 +1,21 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+// ----------------------------------------------------------	
+// Script (Header and Source files) Name: [HitScanBase]
+// 
+// Author: [Alex Costin]
+// 
+// Editors: []
+// 
+// Description: [this class is responsible for yhe base ray casts for hitscan weapons]
+// 
+// creation Date: [23/04/26]
+// 
+// last edited: [23/04/26 by Alex Costin]
+// 
+// Editors Contributions: []
+// ----------------------------------------------------------	
+
 #pragma once
 
 #include "CoreMinimal.h"
