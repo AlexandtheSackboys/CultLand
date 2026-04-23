@@ -35,9 +35,6 @@ public:
 	int32 Damage;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile Stats")
-	float Range;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile Stats")
 	float Speed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile Stats")

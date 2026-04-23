@@ -11,7 +11,7 @@
 // 
 // creation Date: [21/4/2026]
 // 
-// last edited: [21/04/26 by Charlie Wargent]
+// last edited: [23/04/26 by Charlie Wargent]
 // 
 // Editors Contributions: []
 // ----------------------------------------------------------	
@@ -21,6 +21,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "UProjectileData.h"
 #include "UWeaponData.generated.h"
 
 /**
@@ -38,6 +39,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Stats")
 	float Recoil;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile Stats")
+	float Range;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Stats")
 	float ReloadTime;
 
@@ -52,5 +56,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon Juice")
 	TArray<UParticleSystem*> WeaponEffect;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UUProjectileData* ProjectileData;
 
 };
