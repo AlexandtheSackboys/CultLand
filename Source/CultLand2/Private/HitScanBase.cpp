@@ -39,15 +39,14 @@ void UHitScanBase::DrawHitRay(FVector end)
 	start = GetOwner()->GetActorLocation();
 	end = start + (GetOwner()->GetActorForwardVector() * Range);
 	//FCollisionQueryParams hitParameters = FCollisionQueryParams(FName(TEXT("HitScanTrace")), true, GetOwner());
-	FHitResult hitResult;
 
 	// creates a line when from the components owner location
-	GetWorld()->LineTraceSingleByChannel(hitResult, start, end, ECC_Visibility);
+	GetWorld()->LineTraceSingleByChannel(HitResult, start, end, ECC_Visibility);
 
-	if (hitResult.bBlockingHit)
+	if (HitResult.bBlockingHit)
 	{
 		// draws the red line when it hits
-		DrawDebugLine(GetWorld(), start, hitResult.Location, FColor::Red, false, 1.f, 0, 1.f);
+		DrawDebugLine(GetWorld(), start, HitResult.Location, FColor::Red, false, 1.f, 0, 1.f);
 	}
 	else
 	{

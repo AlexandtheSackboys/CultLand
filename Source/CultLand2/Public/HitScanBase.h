@@ -11,7 +11,7 @@
 // 
 // creation Date: [23/04/26]
 // 
-// last edited: [23/04/26 by Alex Costin]
+// last edited: [28/04/26 by Alex Costin]
 // 
 // Editors Contributions: []
 // ----------------------------------------------------------	
@@ -48,5 +48,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Prototype Stats")
 	float Range = 2000.f;
 
-		
+	UPROPERTY(BlueprintReadWrite, Category = "ray cast")
+	FHitResult HitResult;
 };
