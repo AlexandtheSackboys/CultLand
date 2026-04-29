@@ -5,7 +5,7 @@
 // 
 // Author: [Alex Costin]
 // 
-// Editors: []
+// Editors: [Charlie Wargent]
 // 
 // Description: [the Wave Spawner class responsible for spawning enemy waves]
 // 
@@ -13,7 +13,7 @@
 // 
 // last edited: [22/04/26 by Alex Costin]
 // 
-// Editors Contributions: []
+// Editors Contributions: [Making the enemies spawn at different wave spawner objects and get added when unlocking new areas]
 // ----------------------------------------------------------	
 
 #pragma once
@@ -35,6 +35,10 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SpawnWave();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup")
+	TMap<int, TSubclassOf<AActor>> _enemyWaves;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -50,8 +54,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	float _spawnDelay;
 
-
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -63,7 +65,6 @@ public:
 	// determines the wave number
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	int WaveNumber = 1;
-
 
 
 };
