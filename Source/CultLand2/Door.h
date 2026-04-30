@@ -23,6 +23,7 @@
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
+#include "Sound/SoundBase.h"
 #include "WaveSpawner.h"
 #include "Door.generated.h"
 
@@ -42,12 +43,14 @@ protected:
 
 	void OpenDoor();
 
-private: 
-	bool bIsOpen = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
+	int WaveCapacity;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
+	USoundBase* _doorOpenSound;
+
+	UPROPERTY(EditAnywhere)
+	TArray<AActor*> _doorsAmount;
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Setup")
 	AWaveSpawner* _waveSpawner;
@@ -58,7 +61,18 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Door")
 	UStaticMeshComponent* _mesh;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Door")
-	USoundBase* _doorOpenSound;
+private: 
+	bool bIsOpen = false;
+
+public:	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+
+
+
+
+
+
 
 };

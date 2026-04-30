@@ -69,5 +69,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	int WaveNumber = 1;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int Remainder = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<AActor*> _amountOfDoors;
+
+
+
 
 };
