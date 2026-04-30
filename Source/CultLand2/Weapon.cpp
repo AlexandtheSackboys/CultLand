@@ -18,17 +18,14 @@ void AWeapon::BeginPlay()
 	currentAmmoCount = WeaponData->MaxAmmoCount;
 }
 
-void AWeapon::ShootWeapon()
+void AWeapon::StartShootingWeapon()
 {
-	if (accumulation < WeaponData->FireRate) return;
-	if (currentAmmoInMag < 0) 
-	{
-		ReloadWeapon();
-		return;
-	}
-	currentAmmoInMag -= 1;
-	if (WeaponData->ProjectileData->bIsHitscan) HitScanner->DrawHitRay(CurrentEndPoint);
+	buttonDown = true;
+}
 
+void AWeapon::StopShootingWeapon()
+{
+	buttonDown = false;
 }
 
 void AWeapon::ReloadWeapon()
@@ -52,15 +49,29 @@ void AWeapon::Tick(float DeltaTime)
 
 	accumulation += DeltaTime;
 
-	CurrentEndPoint = DetermineEndPoint(PlayerCam);
+	auto v = DetermineEndPoint(PlayerCam);
+	CurrentEndPoint = v.endpoint;
+
+	if (buttonDown) 
+	{
+		if (accumulation < WeaponData->FireRate) return;
+		if (currentAmmoInMag < 0)
+		{
+			ReloadWeapon();
+			return;
+		}
+
+		accumulation = 0;
+		currentAmmoInMag -= 1;
+		if (WeaponData->ProjectileData->bIsHitscan) HitScanner->DrawHitRay(ActorOrigin, CurrentEndPoint, v.blockingHit);
+	}
 
 }
 
-FVector AWeapon::DetermineEndPoint(const UCameraComponent* const cam)
+EndpointReturnValue AWeapon::DetermineEndPoint(const UCameraComponent* const cam)
 {
 	FHitResult result;
-	GetWorld()->LineTraceSingleByChannel(result, GetActorForwardVector(), cam->GetForwardVector() * WeaponData->Range, ECollisionChannel::ECC_Visibility);
-	if (result.bBlockingHit) return result.ImpactPoint;
-	else return result.TraceEnd;
+	GetWorld()->LineTraceSingleByChannel(result, ActorOrigin, ShootTarget, ECollisionChannel::ECC_Visibility);
+	if (result.bBlockingHit) return EndpointReturnValue(result.ImpactPoint, true);
+	else return EndpointReturnValue(result.TraceEnd, false);
 }
-

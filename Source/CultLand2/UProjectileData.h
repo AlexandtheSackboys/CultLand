@@ -25,7 +25,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType)
 class CULTLAND2_API UUProjectileData : public UDataAsset
 {
 	GENERATED_BODY()

@@ -43,7 +43,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable)
-	void DrawHitRay(FVector end);
+	void DrawHitRay(FVector start, FVector end, bool hit);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Prototype Stats")
 	float Range = 2000.f;

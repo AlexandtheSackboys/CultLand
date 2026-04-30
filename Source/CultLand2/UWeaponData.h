@@ -27,7 +27,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType)
 class CULTLAND2_API UUWeaponData : public UDataAsset
 {
 	GENERATED_BODY()

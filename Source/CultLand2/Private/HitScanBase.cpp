@@ -32,18 +32,14 @@ void UHitScanBase::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 	// ...
 }
 
-void UHitScanBase::DrawHitRay(FVector end)
+void UHitScanBase::DrawHitRay(FVector start, FVector end, bool hit)
 {
-	FVector start;
-
-	start = GetOwner()->GetActorLocation();
-	end = start + (GetOwner()->GetActorForwardVector() * Range);
 	//FCollisionQueryParams hitParameters = FCollisionQueryParams(FName(TEXT("HitScanTrace")), true, GetOwner());
 
 	// creates a line when from the components owner location
 	GetWorld()->LineTraceSingleByChannel(HitResult, start, end, ECC_Visibility);
 
-	if (HitResult.bBlockingHit)
+	if (hit)
 	{
 		// draws the red line when it hits
 		DrawDebugLine(GetWorld(), start, HitResult.Location, FColor::Red, false, 1.f, 0, 1.f);
