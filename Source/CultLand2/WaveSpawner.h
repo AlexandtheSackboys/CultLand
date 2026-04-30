@@ -11,7 +11,7 @@
 // 
 // creation Date: [20/04/26]
 // 
-// last edited: [22/04/26 by Alex Costin]
+// last edited: [30/04/26 by Charlie Wargent]
 // 
 // Editors Contributions: [Making the enemies spawn at different wave spawner objects and get added when unlocking new areas]
 // ----------------------------------------------------------	
@@ -38,6 +38,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup")
 	TMap<int, TSubclassOf<AActor>> _enemyWaves;
+
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Setup")
+	TArray<AActor*> _WaveSpawners; // array of other wave spawners to spawn enemies at when unlocking new areas
 
 protected:
 	// Called when the game starts or when spawned

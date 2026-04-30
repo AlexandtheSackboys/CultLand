@@ -40,7 +40,7 @@ void ADoor::Tick(float DeltaTime)
 
 	if (!bIsOpen && _waveSpawner) // check if the door is already open && null check to prevent crashes if the wave spawner is not set 
 	{
-		if (_waveSpawner->WaveNumber == 3)
+		if (_waveSpawner->WaveNumber >= 3)
 		{
 			OpenDoor();
 		}
