@@ -13,37 +13,50 @@ AWaveSpawner::AWaveSpawner()
 
 }
 
-void AWaveSpawner::SpawnWave()
-{
-	if(CurrentEnemyCount <= 0)
-	{
-		
-		for(int enemiesSpawned = 0; enemiesSpawned < _enemiesPerWave; enemiesSpawned++)
-		{
-			// selects a rabndom increment to ensure that the enemies do not spawn in the same place
-			float SpawnIncrement =  FMath::FRandRange(0, 600.0f);
-
-			// figures out the spawn position for each enemy
-			FVector SpawnPos = FVector(GetActorLocation().X + SpawnIncrement, GetActorLocation().Y + SpawnIncrement, GetActorLocation().Z);
-			GetWorld()->SpawnActor<AActor>(_enemyActor, SpawnPos, GetActorRotation());
-
-			
-		}
-
-		WaveNumber = WaveNumber + 1;
-		CurrentEnemyCount = _enemiesPerWave;
-		_enemiesPerWave = _enemiesPerWave + 2; // increase the amount of enemies that will spawn in the next wave by 2
-	}
-
-
-}
-
 // Called when the game starts or when spawned
 void AWaveSpawner::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
+
+void AWaveSpawner::SpawnWave()
+{
+
+
+	if (CurrentEnemyCount <= 0 && _WaveSpawners.Num() > 0) 
+	{
+		int SpawnRemainder = _WaveSpawners.Num() - Remainder;
+
+		for (int enemiesSpawned = 0; enemiesSpawned < _enemiesPerWave; enemiesSpawned++)
+		{
+
+			// Spawns enemies at random spawners in the _WaveSpawners array, which will increase as the player unlocks new areas and more spawners are added to the array
+			int SpawnIncrement = FMath::RandRange(0, SpawnRemainder);
+			
+			AActor* SpawnPoint = _WaveSpawners[SpawnIncrement];	
+
+			if (!SpawnPoint) continue;
+
+			FVector Offset = FVector(FMath::RandRange(-100.f, 100.f), FMath::RandRange(-100.f, 100.f), 0.f); // random offset to spawn enemies in a wider area around the spawn point
+	
+			// ensures that enemies will spawn even if there are other actors in the way, and will adjust their position to prevent collisions if possible
+			FActorSpawnParameters SpawnParams;
+			SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn; 
+
+
+			// figures out the spawn position for each enemy
+			FVector SpawnPos = SpawnPoint->GetActorLocation() + Offset;
+			GetWorld()->SpawnActor<AActor>(_enemyActor, SpawnPos, GetActorRotation(), SpawnParams);
+
+			UE_LOG(LogTemp, Warning, TEXT("Using Spawner Index: %d"), SpawnIncrement);
+		}
+		WaveNumber = WaveNumber + 1;
+		CurrentEnemyCount = _enemiesPerWave;
+		_enemiesPerWave = _enemiesPerWave + 2; // increase the amount of enemies that will spawn in the next wave by 2
+	}
+}
+
 
 // Called every frame
 void AWaveSpawner::Tick(float DeltaTime)

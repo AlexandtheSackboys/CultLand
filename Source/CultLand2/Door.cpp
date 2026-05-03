@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Door.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ADoor::ADoor()
@@ -20,17 +21,23 @@ ADoor::ADoor()
 void ADoor::BeginPlay()
 {
 	Super::BeginPlay();
+
+
 	
 }
 
 void ADoor::OpenDoor()
 {
 	bIsOpen = true;
+	UGameplayStatics::PlaySoundAtLocation(_mesh, _doorOpenSound, GetActorLocation(), GetActorRotation());
+
 	UE_LOG(LogTemp, Warning, TEXT("Door opened"));
 
 	_collisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision); // disable collision to allow passthrough
 
 	Destroy(); // destroy the door actor to open the path for the player
+
+	_waveSpawner->Remainder--;
 }
 
 // Called every frame
@@ -40,7 +47,7 @@ void ADoor::Tick(float DeltaTime)
 
 	if (!bIsOpen && _waveSpawner) // check if the door is already open && null check to prevent crashes if the wave spawner is not set 
 	{
-		if (_waveSpawner->WaveNumber == 3)
+		if (_waveSpawner->WaveNumber >= WaveCapacity)
 		{
 			OpenDoor();
 		}
