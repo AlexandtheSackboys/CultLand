@@ -1,5 +1,21 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+// ----------------------------------------------------------	
+// Script (Header and Source files) Name: [Weapon]
+// 
+// Author: [Mikyle Yakub]
+// 
+// Editors: [Alex Costin]
+// 
+// Description: [Base weapon class]
+// 
+// creation Date: [21/04/26]
+// 
+// last edited: [05/05/26 by Alex Costin]
+// 
+// Editors Contributions: [Alex Costin: put HitScan in calculations in a separate function from Tick]
+// ----------------------------------------------------------	
+
 #pragma once
 
 #include "CoreMinimal.h"
@@ -68,6 +84,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ReloadWeapon();
+
+	UFUNCTION(BlueprintCallable)
+	void RayShoot();
 
 private:
 	bool can_fire = true;

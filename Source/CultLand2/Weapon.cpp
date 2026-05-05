@@ -42,17 +42,11 @@ void AWeapon::ReloadWeapon()
 	}
 }
 
-// Called every frame
-void AWeapon::Tick(float DeltaTime)
+void AWeapon::RayShoot()
 {
-	Super::Tick(DeltaTime);
-
-	accumulation += DeltaTime;
-
 	auto v = DetermineEndPoint(PlayerCam);
 	CurrentEndPoint = v.endpoint;
-
-	if (buttonDown) 
+	if (buttonDown)
 	{
 		if (accumulation < WeaponData->FireRate) return;
 		if (currentAmmoInMag < 0)
@@ -65,6 +59,31 @@ void AWeapon::Tick(float DeltaTime)
 		currentAmmoInMag -= 1;
 		if (WeaponData->ProjectileData->bIsHitscan) HitScanner->DrawHitRay(ActorOrigin, CurrentEndPoint, v.blockingHit);
 	}
+}
+
+// Called every frame
+void AWeapon::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	accumulation += DeltaTime;
+
+	//auto v = DetermineEndPoint(PlayerCam);
+	//CurrentEndPoint = v.endpoint;
+
+	//if (buttonDown) 
+	//{
+	//	if (accumulation < WeaponData->FireRate) return;
+	//	if (currentAmmoInMag < 0)
+	//	{
+	//		ReloadWeapon();
+	//		return;
+	//	}
+
+	//	accumulation = 0;
+	//	currentAmmoInMag -= 1;
+	//	//if (WeaponData->ProjectileData->bIsHitscan) HitScanner->DrawHitRay(ActorOrigin, CurrentEndPoint, v.blockingHit);
+	//}
 
 }
 
