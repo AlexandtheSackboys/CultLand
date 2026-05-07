@@ -11,9 +11,12 @@
 // 
 // creation Date: [21/04/26]
 // 
-// last edited: [05/05/26 by Alex Costin]
+// last edited: [07/05/26 by Alex Costin]
 // 
-// Editors Contributions: [Alex Costin: put HitScan in calculations in a separate function from Tick]
+// Editors Contributions: [
+// Alex Costin:
+// put HitScan in calculations in a separate function from Tick
+// fixed Current Endpoint to be more consistent]
 // ----------------------------------------------------------	
 
 #pragma once
@@ -66,6 +69,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileType")
 	UHitScanBase* HitScanner;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileType")
+	float HitscanDistance= 20000.f;
 
 	UPROPERTY(BlueprintReadOnly)
 	int currentAmmoCount = 100;

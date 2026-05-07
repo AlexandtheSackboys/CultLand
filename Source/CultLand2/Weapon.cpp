@@ -45,7 +45,10 @@ void AWeapon::ReloadWeapon()
 void AWeapon::RayShoot()
 {
 	auto v = DetermineEndPoint(PlayerCam);
-	CurrentEndPoint = v.endpoint;
+	//CurrentEndPoint = v.endpoint;
+
+	FVector	startLocation = PlayerCam->GetComponentLocation() - FVector(1, 1, 10);
+	CurrentEndPoint = (PlayerCam->GetForwardVector() * HitscanDistance) + startLocation;
 	if (buttonDown)
 	{
 		if (accumulation < WeaponData->FireRate) return;
@@ -57,7 +60,7 @@ void AWeapon::RayShoot()
 
 		accumulation = 0;
 		currentAmmoInMag -= 1;
-		if (WeaponData->ProjectileData->bIsHitscan) HitScanner->DrawHitRay(ActorOrigin, CurrentEndPoint, v.blockingHit);
+		if (WeaponData->ProjectileData->bIsHitscan) HitScanner->DrawHitRay(startLocation, CurrentEndPoint, v.blockingHit);
 	}
 }
 
