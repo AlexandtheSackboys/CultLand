@@ -71,8 +71,6 @@ public:
 	UHitScanBase* HitScanner;
 
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileType")
-	float HitscanDistance= 20000.f;
 
 	UPROPERTY(BlueprintReadOnly)
 	int currentAmmoCount = 100;
@@ -93,7 +91,7 @@ public:
 	void ReloadWeapon();
 
 	UFUNCTION(BlueprintCallable)
-	void RayShoot();
+	void RayShoot(float range);
 
 private:
 	bool can_fire = true;

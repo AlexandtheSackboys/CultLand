@@ -42,13 +42,13 @@ void AWeapon::ReloadWeapon()
 	}
 }
 
-void AWeapon::RayShoot()
+void AWeapon::RayShoot(float range)
 {
 	auto v = DetermineEndPoint(PlayerCam);
 	//CurrentEndPoint = v.endpoint;
 
 	FVector	startLocation = PlayerCam->GetComponentLocation() - FVector(1, 1, 10);
-	CurrentEndPoint = (PlayerCam->GetForwardVector() * HitscanDistance) + startLocation;
+	CurrentEndPoint = (PlayerCam->GetForwardVector() * range) + startLocation;
 	if (buttonDown)
 	{
 		if (accumulation < WeaponData->FireRate) return;
