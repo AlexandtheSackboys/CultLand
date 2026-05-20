@@ -23,7 +23,6 @@ void AWaveSpawner::BeginPlay()
 void AWaveSpawner::SpawnWave()
 {
 
-
 	if (CurrentEnemyCount <= 0 && _WaveSpawners.Num() > 0) 
 	{
 		int SpawnRemainder = _WaveSpawners.Num() - Remainder;
