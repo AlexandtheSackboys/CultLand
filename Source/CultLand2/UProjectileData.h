@@ -48,4 +48,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile Juice")
 	TArray<USoundBase*> FireSound;
+
+
 };

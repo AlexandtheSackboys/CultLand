@@ -22,8 +22,26 @@ void ADoor::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// null checks 
+	if (_waveSpawner == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Wave spawner not set on door: %s"), *GetName());
+	}
 
-	
+	if (_doorOpenSound == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Door open sound not set on door: %s"), *GetName());
+	}
+
+	if (_collisionBox == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Collision box not set on door: %s"), *GetName());
+	}
+
+	if(_mesh == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Mesh not set on door: %s"), *GetName());
+	}
 }
 
 void ADoor::OpenDoor()
@@ -37,7 +55,7 @@ void ADoor::OpenDoor()
 
 	Destroy(); // destroy the door actor to open the path for the player
 
-	_waveSpawner->Remainder--;
+	_waveSpawner->Remainder--; 
 }
 
 // Called every frame
@@ -49,7 +67,7 @@ void ADoor::Tick(float DeltaTime)
 	{
 		if (_waveSpawner->WaveNumber >= WaveCapacity)
 		{
-			OpenDoor();
+			OpenDoor(); 
 		}
 	}
 
