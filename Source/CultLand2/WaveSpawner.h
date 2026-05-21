@@ -20,6 +20,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Public/DebugLogManager.h"
 #include "WaveSpawner.generated.h"
 
 UCLASS(Blueprintable)

@@ -94,6 +94,8 @@ EndpointReturnValue AWeapon::DetermineEndPoint(const UCameraComponent* const cam
 {
 	FHitResult result;
 	GetWorld()->LineTraceSingleByChannel(result, ActorOrigin, ShootTarget, ECollisionChannel::ECC_Visibility);
+	UE_LOG(HitScanError, Error, TEXT("Does Work"), *result.ToString());
 	if (result.bBlockingHit) return EndpointReturnValue(result.ImpactPoint, true);
 	else return EndpointReturnValue(result.TraceEnd, false);
+
 }

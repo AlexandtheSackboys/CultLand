@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Public/DebugLogManager.h"
 #include "GameFramework/Actor.h"
 #include "ProjectileBullet.generated.h"
 

@@ -16,7 +16,9 @@
 // Editors Contributions: [
 // Alex Costin:
 // put HitScan in calculations in a separate function from Tick
-// fixed Current Endpoint to be more consistent]
+// fixed Current Endpoint to be more consistent
+// 
+// Adding Custom Log Manager ]
 // ----------------------------------------------------------	
 
 #pragma once
@@ -25,6 +27,8 @@
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerStart.h"
 #include "UWeaponData.h"
+#include "DrawDebugHelpers.h"
+#include "Public/DebugLogManager.h"
 #include "Public/HitScanBase.h"
 #include "Camera/CameraComponent.h"
 #include "Weapon.generated.h"
@@ -69,7 +73,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileType")
 	UHitScanBase* HitScanner;
-
 
 
 	UPROPERTY(BlueprintReadOnly)

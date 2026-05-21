@@ -5,15 +5,15 @@
 // 
 // Author: [Charlie Wargent]
 // 
-// Editors: []
+// Editors: [Alex Costin]
 // 
 // Description: [Doors that open when a certain round criteria has been met]
 // 
 // creation Date: [27/4/2026]
 // 
-// last edited: [28/04/26 by Charlie Wargent]
+// last edited: [21/05/26 by Alex Costin]
 // 
-// Editors Contributions: []
+// Editors Contributions: [DebugLogManager]
 // ----------------------------------------------------------	
 
 
@@ -22,6 +22,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
+#include "Public/DebugLogManager.h"
 #include "Components/BoxComponent.h"
 #include "Sound/SoundBase.h"
 #include "WaveSpawner.h"
