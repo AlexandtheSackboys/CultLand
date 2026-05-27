@@ -9,11 +9,13 @@ AAmmoCollectionPoint::AAmmoCollectionPoint()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	_collisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision Box"));
-	RootComponent = _collisionBox;
 
 	_mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	_mesh->SetupAttachment(RootComponent);
+
+
+	_collisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision Box"));
+	RootComponent = _collisionBox;
 
 
 }
@@ -32,8 +34,10 @@ void AAmmoCollectionPoint::Tick(float DeltaTime)
 
 }
 
-void AAmmoCollectionPoint::CollectAmmo(int ammoReserve, int maxClip)
+void AAmmoCollectionPoint::CollectAmmo(int maxClip)
 {
-	ammoReserve += maxClip * _collectMultiplier;
+
+
+	_ammoFull = maxClip * _collectMultiplier;
 }
 

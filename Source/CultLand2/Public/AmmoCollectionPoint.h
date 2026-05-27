@@ -54,7 +54,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Ammo Box")
-	void CollectAmmo(int ammoReserve,int maxClip);
+	void CollectAmmo(int maxClip);
 
+	UPROPERTY(BlueprintReadOnly, Category = "Ammo")
+	int _ammoFull;
 
 };
