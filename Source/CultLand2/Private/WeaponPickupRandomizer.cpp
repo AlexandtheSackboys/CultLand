@@ -31,9 +31,9 @@ void UWeaponPickupRandomizer::TickComponent(float DeltaTime, ELevelTick TickType
 	// ...
 }
 
-void UWeaponPickupRandomizer::Randomiser(int maxIndex)
+void UWeaponPickupRandomizer::Randomizer(int maxIndex)
 {
-	RandomWeaponIndex = FMath::RandRange(0, maxIndex);
+	RandomWeaponIndex = FMath::RandRange(0, maxIndex - 1);
 	//DebugLogManager::Log("Randomized weapon index: " + FString::FromInt(RandomWeaponIndex));
 }
 

@@ -43,7 +43,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon Pickup")
-	void Randomiser(int maxIndex);
+	void Randomizer(int maxIndex);
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Weapon Pickup")
 	int RandomWeaponIndex;
