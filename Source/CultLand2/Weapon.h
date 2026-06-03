@@ -11,14 +11,16 @@
 // 
 // creation Date: [21/04/26]
 // 
-// last edited: [07/05/26 by Alex Costin]
+// last edited: [03/06/26 by Alex Costin]
 // 
 // Editors Contributions: [
 // Alex Costin:
 // put HitScan in calculations in a separate function from Tick
 // fixed Current Endpoint to be more consistent
 // 
-// Adding Custom Log Manager ]
+// Adding Custom Log Manager 
+// 
+// Adding Hitscan parameter to RayShoot]
 // ----------------------------------------------------------	
 
 #pragma once
@@ -72,7 +74,7 @@ public:
 	UCameraComponent* PlayerCam;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileType")
-	UHitScanBase* HitScanner;
+	UHitScanBase* WeaponHitScan;
 
 
 	UPROPERTY(BlueprintReadOnly)
@@ -94,7 +96,7 @@ public:
 	void ReloadWeapon();
 
 	UFUNCTION(BlueprintCallable)
-	void RayShoot(float range);
+	void RayShoot(float range, UHitScanBase* hitScanner);
 
 private:
 	bool can_fire = true;

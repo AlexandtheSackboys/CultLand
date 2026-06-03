@@ -42,7 +42,7 @@ void AWeapon::ReloadWeapon()
 	}
 }
 
-void AWeapon::RayShoot(float range)
+void AWeapon::RayShoot(float range, UHitScanBase* hitScanner)
 {
 	auto v = DetermineEndPoint(PlayerCam);
 	//CurrentEndPoint = v.endpoint;
@@ -60,7 +60,7 @@ void AWeapon::RayShoot(float range)
 
 		accumulation = 0;
 		currentAmmoInMag -= 1;
-		if (WeaponData->ProjectileData->bIsHitscan) HitScanner->DrawHitRay(startLocation, CurrentEndPoint, v.blockingHit);
+		if (WeaponData->ProjectileData->bIsHitscan) hitScanner->DrawHitRay(startLocation, CurrentEndPoint, v.blockingHit,range);
 	}
 }
 

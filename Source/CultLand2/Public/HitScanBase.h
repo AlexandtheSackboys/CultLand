@@ -7,11 +7,11 @@
 // 
 // Editors: []
 // 
-// Description: [this class is responsible for yhe base ray casts for hitscan weapons]
+// Description: [this class is responsible for the base ray casts for hitscan weapons]
 // 
 // creation Date: [23/04/26]
 // 
-// last edited: [28/04/26 by Alex Costin]
+// last edited: [03/06/26 by Alex Costin]
 // 
 // Editors Contributions: []
 // ----------------------------------------------------------	
@@ -21,6 +21,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Engine/World.h"
+#include "DebugLogManager.h"
 #include "DrawDebugHelpers.h"
 #include "HitScanBase.generated.h"
 
@@ -43,11 +44,14 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable)
-	void DrawHitRay(FVector start, FVector end, bool hit);
+	virtual void DrawHitRay(FVector start, FVector end, bool hit, float rayRange);
+
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Prototype Stats")
 	float Range = 2000.f;
 
 	UPROPERTY(BlueprintReadWrite, Category = "ray cast")
 	FHitResult HitResult;
+
+
 };
