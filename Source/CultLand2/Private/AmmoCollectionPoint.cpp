@@ -11,11 +11,13 @@ AAmmoCollectionPoint::AAmmoCollectionPoint()
 
 
 	_mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	_mesh->SetupAttachment(RootComponent);
+	RootComponent = _mesh;
+
+
 
 
 	_collisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision Box"));
-	RootComponent = _collisionBox;
+	_collisionBox->SetupAttachment(RootComponent);
 
 
 }
