@@ -3,6 +3,7 @@
 
 #include "HitScanBase.h"
 
+
 // Sets default values for this component's properties
 UHitScanBase::UHitScanBase()
 {
@@ -32,7 +33,7 @@ void UHitScanBase::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 	// ...
 }
 
-void UHitScanBase::DrawHitRay(FVector start, FVector end, bool hit)
+void UHitScanBase::DrawHitRay(FVector start, FVector end, bool hit, float rayRange)
 {
 	//FCollisionQueryParams hitParameters = FCollisionQueryParams(FName(TEXT("HitScanTrace")), true, GetOwner());
 
@@ -49,5 +50,8 @@ void UHitScanBase::DrawHitRay(FVector start, FVector end, bool hit)
 		// draws the yellow line when it doesn't hit anything
 		DrawDebugLine(GetWorld(), start, end, FColor::Yellow, false, 1.f, 0, 1.f);
 	}
+
+	UE_LOG(HitScanError, Error, TEXT("hit ray is drawn"));
+
 }
 

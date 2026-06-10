@@ -22,7 +22,6 @@ void AWaveSpawner::BeginPlay()
 
 void AWaveSpawner::SpawnWave()
 {
-
 	if (CurrentEnemyCount <= 0 && _WaveSpawners.Num() > 0) 
 	{
 		int SpawnRemainder = _WaveSpawners.Num() - Remainder;
@@ -53,7 +52,10 @@ void AWaveSpawner::SpawnWave()
 		WaveNumber = WaveNumber + 1;
 		CurrentEnemyCount = _enemiesPerWave;
 		_enemiesPerWave = _enemiesPerWave + 2; // increase the amount of enemies that will spawn in the next wave by 2
+		CanPickupWeapon = true;
+		
 	}
+
 }
 
 

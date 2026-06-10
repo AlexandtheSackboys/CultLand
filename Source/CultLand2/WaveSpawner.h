@@ -11,7 +11,7 @@
 // 
 // creation Date: [20/04/26]
 // 
-// last edited: [30/04/26 by Charlie Wargent]
+// last edited: [04/06/26 by Alex Costin]
 // 
 // Editors Contributions: [Making the enemies spawn at different wave spawner objects and get added when unlocking new areas]
 // ----------------------------------------------------------	
@@ -54,7 +54,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	int _enemiesPerWave;
 
-	// the time between the llast and next wave
+	// the time between the last and next wave
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	float _spawnDelay;
 
@@ -73,8 +73,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	int Remainder = 2;
 
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	TArray<AActor*> _amountOfDoors;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Reset Values")
+	bool CanPickupWeapon = true;
+
+
 
 
 };

@@ -16,7 +16,7 @@
 // Editors Contributions: []
 // ----------------------------------------------------------	
 #pragma once
-
+#include "Engine/World.h"
 #include "CoreMinimal.h"
 
 // ERROR CATEGORIES
