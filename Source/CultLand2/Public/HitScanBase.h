@@ -11,7 +11,7 @@
 // 
 // creation Date: [23/04/26]
 // 
-// last edited: [03/06/26 by Alex Costin]
+// last edited: [12/06/26 by Alex Costin]
 // 
 // Editors Contributions: []
 // ----------------------------------------------------------	
@@ -44,7 +44,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable)
-	virtual void DrawHitRay(FVector start, FVector end, bool hit, float rayRange);
+	virtual void DrawHitRay(FVector forwardVector,FVector startLocation, bool hit, float rayRange);
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Prototype Stats")

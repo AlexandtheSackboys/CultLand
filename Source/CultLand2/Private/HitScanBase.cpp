@@ -33,22 +33,24 @@ void UHitScanBase::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 	// ...
 }
 
-void UHitScanBase::DrawHitRay(FVector start, FVector end, bool hit, float rayRange)
+void UHitScanBase::DrawHitRay(FVector forwardVector,FVector startLocation, bool hit, float rayRange)
 {
 	//FCollisionQueryParams hitParameters = FCollisionQueryParams(FName(TEXT("HitScanTrace")), true, GetOwner());
 
-	// creates a line when from the components owner location
-	GetWorld()->LineTraceSingleByChannel(HitResult, start, end, ECC_Visibility);
+	// calculates the end location 
+	FVector endLocation = (forwardVector * rayRange) + startLocation;
+	// creates a line from the components owner location
+	GetWorld()->LineTraceSingleByChannel(HitResult, startLocation, endLocation, ECC_Visibility);
 
-	if (hit)
+	if (HitResult.bBlockingHit)
 	{
 		// draws the red line when it hits
-		DrawDebugLine(GetWorld(), start, HitResult.Location, FColor::Red, false, 1.f, 0, 1.f);
+		DrawDebugLine(GetWorld(), startLocation, HitResult.Location, FColor::Red, false, 1.f, 0, 1.f);
 	}
 	else
 	{
 		// draws the yellow line when it doesn't hit anything
-		DrawDebugLine(GetWorld(), start, end, FColor::Yellow, false, 1.f, 0, 1.f);
+		DrawDebugLine(GetWorld(), startLocation, endLocation, FColor::Yellow, false, 1.f, 0, 1.f);
 	}
 
 	UE_LOG(HitScanError, Error, TEXT("hit ray is drawn"));
