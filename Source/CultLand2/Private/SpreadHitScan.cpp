@@ -18,27 +18,32 @@ void USpreadHitScan::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	
 }
 
-void USpreadHitScan::DrawHitRay(FVector start, FVector end, bool hit, float rayRange)
+void USpreadHitScan::DrawHitRay(FVector forwardVector,FVector startLocation , bool hit, float rayRange)
 {
-	for(int pelletShot = 0; pelletShot < _pelletPoints; pelletShot++)
+	for(int pelletShot = 0; pelletShot < _pelletAmount; pelletShot++)
 	{
+		const float randomSpread = FMath::FRandRange(0, _spreadAngle);
 
-		const float randomVertical = FMath::FRandRange(-_spreadAngle, _spreadAngle);
-		const float randomHorizontal = FMath::FRandRange(-_spreadAngle, _spreadAngle);
-		FVector pelletDirection = FMath::VRandCone(start.Rotation().Vector(), FMath::DegreesToRadians(_spreadAngle));
+		// calculates the end location with the  random spread angle for each pellet
+		FVector pelletDirection = FMath::VRandCone(forwardVector.Rotation().Vector(), FMath::DegreesToRadians(randomSpread));
 
-		end = start + (pelletDirection * rayRange);
-		if (hit)
+		FVector endLocation = (pelletDirection * rayRange) + startLocation;
+		// creates a line from the components owner location
+		GetWorld()->LineTraceSingleByChannel(HitResult, startLocation, endLocation, ECC_Visibility);
+
+		if (HitResult.bBlockingHit)
 		{
 			// draws the red line when it hits
-			DrawDebugLine(GetWorld(), start, HitResult.Location, FColor::Red, false, 1.f, 0, 1.f);
+			DrawDebugLine(GetWorld(), startLocation, HitResult.Location, FColor::Red, false, 1.f, 0, 1.f);
 		}
 		else
 		{
 			// draws the yellow line when it doesn't hit anything
-			DrawDebugLine(GetWorld(), start, end, FColor::Yellow, false, 1.f, 0, 1.f);
+			DrawDebugLine(GetWorld(), startLocation, endLocation, FColor::Yellow, false, 1.f, 0, 1.f);
 		}
-		UE_LOG(HitScanError, Error, TEXT("hit ray is drawn"));
+
+
+			UE_LOG(HitScanError, Error, TEXT("hit ray is drawn"));
 	}
 }
 

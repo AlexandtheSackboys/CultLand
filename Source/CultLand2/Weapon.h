@@ -15,8 +15,11 @@
 // 
 // Editors Contributions: [
 // Alex Costin:
+// 
 // put HitScan in calculations in a separate function from Tick
 // fixed Current Endpoint to be more consistent
+// 
+// Got rid of end location calculation to be in the Hitscan class
 // 
 // Adding Custom Log Manager 
 // 
@@ -83,8 +86,8 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	int currentAmmoInMag = 32;
 
-	UPROPERTY(BlueprintReadOnly)
-	FVector CurrentEndPoint = FVector(0.f, 0.f, 0.f);
+	//UPROPERTY(BlueprintReadOnly)
+	//FVector CurrentEndPoint = FVector(0.f, 0.f, 0.f);
 
 	UFUNCTION(BlueprintCallable)
 	void StartShootingWeapon();
