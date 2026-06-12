@@ -42,7 +42,7 @@ protected:
 	int _pelletAmount = 7;
 		
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spread")
-	float _spreadAngle = 10.f;
+	float _maxSpreadAngle = 5.0f;
 
 public:
 	// Called every frame
