@@ -22,7 +22,7 @@ void USpreadHitScan::DrawHitRay(FVector forwardVector,FVector startLocation , bo
 {
 	for(int pelletShot = 0; pelletShot < _pelletAmount; pelletShot++)
 	{
-		const float randomSpread = FMath::FRandRange(0, _spreadAngle);
+		const float randomSpread = FMath::FRandRange(0, _maxSpreadAngle);
 
 		// calculates the end location with the  random spread angle for each pellet
 		FVector pelletDirection = FMath::VRandCone(forwardVector.Rotation().Vector(), FMath::DegreesToRadians(randomSpread));
