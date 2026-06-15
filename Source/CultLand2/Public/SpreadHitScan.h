@@ -11,7 +11,7 @@
 // 
 // creation Date: [02/06/26]
 // 
-// last edited: [03/06/26 by Alex Costin]
+// last edited: [12/06/26 by Alex Costin]
 // 
 // Editors Contributions: []
 // ----------------------------------------------------------	
@@ -39,15 +39,15 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spread")
-	int _pelletPoints;
+	int _pelletAmount = 7;
 		
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spread")
-	float _spreadAngle;
+	float _maxSpreadAngle = 5.0f;
 
 public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
-	virtual void DrawHitRay(FVector start, FVector end, bool hit, float rayRange) override;
+	virtual void DrawHitRay(FVector forwardVector, FVector startlocation, bool hit, float rayRange) override;
 
 };
