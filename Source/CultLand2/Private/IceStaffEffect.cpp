@@ -33,19 +33,17 @@ void UIceStaffEffect::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	// ...
 }
 
-void UIceStaffEffect::FreezeCharacter(ACharacter* EnemyToFreeze)
+void UIceStaffEffect::FreezeCharacter(ACharacter* enemyToFreeze, bool isFrozen)
 {
-	if(IsFrozen == true)
+	if(isFrozen == true)
 	{
-		EnemyToFreeze->GetCharacterMovement()->StopMovementImmediately();
+		enemyToFreeze->GetCharacterMovement()->StopMovementImmediately();
 	}
 
 	else
 	{
-		EnemyToFreeze->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Walking);
+		enemyToFreeze->GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Walking);
 	}
-
-	IsFrozen = !IsFrozen;
 
 
 }

@@ -1,5 +1,22 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+// ----------------------------------------------------------	
+// Script (Header and Source files) Name: [IceStaffEffect]
+// 
+// Author: [Alex Costin]
+// 
+// Editors: []
+// 
+// Description: [Test for the Ice staff effects]
+// 
+// creation Date: [15/06/26]
+// 
+// last edited: [17/06/26]
+// 
+// Editors Contributions: []
+// ----------------------------------------------------------	
+
+
 #pragma once
 
 #include "CoreMinimal.h"
@@ -28,12 +45,8 @@ public:
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Freeze element")
-	float FreezeDuration;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Freeze element")
-
-	bool IsFrozen = false;
+	float FreezeDuration = 5.0f;
 
 	UFUNCTION(BlueprintCallable)
-	void FreezeCharacter(ACharacter* ActorToFreeze);
+	void FreezeCharacter(ACharacter* characterFreeze, bool isFrozen);
 };
