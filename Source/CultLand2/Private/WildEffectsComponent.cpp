@@ -32,24 +32,25 @@ void UWildEffectsComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 	// ...
 }
 
-void UWildEffectsComponent::HealthSteal(float damageDealt, float currentHealth)
+void UWildEffectsComponent::HealthSteal(float damageDealt, float mediumMultiplier, float highMultiplier)
 {
-	int randomSelector = FMath::RandRange(1, 3);
 
-	if (randomSelector == 1)
+	int maxHealthRange = 10;
+	int randomSelector = FMath::RandRange(1, maxHealthRange);
+
+	if (randomSelector >= 1 && randomSelector < 7)
 	{
-		currentHealth += damageDealt;
+		RegenOutput = damageDealt;
 	}
-	else if (randomSelector == 2)
+	else if (randomSelector >= 7 && randomSelector < 9)
 	{
-		currentHealth += damageDealt * 10;
+		RegenOutput = damageDealt * mediumMultiplier;
 	}
-	else if (randomSelector == 3)
+	else
 	{
-		currentHealth += damageDealt * 50;
+		RegenOutput = damageDealt * highMultiplier;
 	}
 
-	RegenOutput = currentHealth;
 }
 
 void UWildEffectsComponent::RandomExplosion()

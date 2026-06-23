@@ -11,7 +11,7 @@
 // 
 // creation Date: [22/06/26]
 // 
-// last edited: [22/06/26 by Alex Costin]
+// last edited: [23/06/26 by Alex Costin]
 // 
 // Editors Contributions: []
 // ----------------------------------------------------------	
@@ -51,7 +51,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable)
-	void HealthSteal(float damageDealt, float currentHealth);
+	void HealthSteal(float damageDealt, float mediumMultiplier, float highMultiplier);
 
 	UFUNCTION(BlueprintCallable)
 	void RandomExplosion();
