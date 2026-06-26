@@ -11,7 +11,7 @@
 // 
 // creation Date: [21/05/26]
 // 
-// last edited: [21/05/26 by Alex Costin]
+// last edited: [26/06/26 by Alex Costin]
 // 
 // Editors Contributions: []
 // ----------------------------------------------------------	
@@ -25,6 +25,10 @@
 
 // hit scan error log category
 DECLARE_LOG_CATEGORY_EXTERN(HitScanError, Error, All);
+
+// pickup error log category
+DECLARE_LOG_CATEGORY_EXTERN(PickupError, Error, All);
+
 
 // weapon error log category
 DECLARE_LOG_CATEGORY_EXTERN(WeaponError, Error, All);
@@ -54,6 +58,9 @@ DECLARE_LOG_CATEGORY_EXTERN(WeaponWarning, Warning, All);
 
 // Log category for projectile warnings
 DECLARE_LOG_CATEGORY_EXTERN(ProjectileWarning, Warning, All);
+
+// Log category for pickup warnings
+DECLARE_LOG_CATEGORY_EXTERN(PickupWarning, Warning, All);
 
 /**
  * 
