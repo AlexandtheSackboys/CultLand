@@ -51,7 +51,6 @@ void UHitScanBase::DrawHitRay(FVector forwardVector,FVector startLocation, bool 
 		// draws the yellow line when it doesn't hit anything
 		DrawDebugLine(GetWorld(), startLocation, _endLocation, FColor::Yellow, false, 1.f, 0, 1.f);
 	}
-
 	UE_LOG(HitScanError, Error, TEXT("hit ray is drawn"));
 
 }

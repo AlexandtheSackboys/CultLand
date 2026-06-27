@@ -27,6 +27,11 @@ void USpreadHitScan::DrawHitRay(FVector forwardVector,FVector startLocation , bo
 		// calculates the end location with the  random spread angle for each pellet
 		FVector pelletDirection = FMath::VRandCone(forwardVector.Rotation().Vector(), FMath::DegreesToRadians(randomSpread));
 
+		// calls the parent class DrawHitRay function
+		Super::DrawHitRay(pelletDirection, startLocation, hit, rayRange);
+
+
+		/* original code without calling the base class DrawHitRay function
 		FVector endLocation = (pelletDirection * rayRange) + startLocation;
 		// creates a line from the components owner location
 		GetWorld()->LineTraceSingleByChannel(HitResult, startLocation, endLocation, ECC_Visibility);
@@ -41,9 +46,8 @@ void USpreadHitScan::DrawHitRay(FVector forwardVector,FVector startLocation , bo
 			// draws the yellow line when it doesn't hit anything
 			DrawDebugLine(GetWorld(), startLocation, endLocation, FColor::Yellow, false, 1.f, 0, 1.f);
 		}
+		*/
 
-
-			UE_LOG(HitScanError, Error, TEXT("hit ray is drawn"));
 	}
 }
 
