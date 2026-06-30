@@ -1,9 +1,28 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+// ----------------------------------------------------------	
+// Script (Header and Source files) Name: [HornetRifleComponent]
+// 
+// Author: [Charlie Wargent]
+// 
+// Editors: []
+// 
+// Description: [The base for the Hornet Rifle]
+// 
+// creation Date: [30/6/2026]
+// 
+// last edited: [30/6/2026 by Charlie Wargent]
+// 
+// Editors Contributions: []
+// ----------------------------------------------------------	
+
+
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Animation/AnimSequence.h"
+#include "DebugLogManager.h"
 #include "HornetRifleComponent.generated.h"
 
 
@@ -19,6 +38,7 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+
 
 public:	
 	// Called every frame
