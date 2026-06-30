@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 // ----------------------------------------------------------	
-// Script (Header and Source files) Name: [HitScanBase]
+// Script (Header and Source files) Name: [SpreadHitScan]
 // 
 // Author: [Alex Costin]
 // 
@@ -11,7 +11,7 @@
 // 
 // creation Date: [02/06/26]
 // 
-// last edited: [12/06/26 by Alex Costin]
+// last edited: [27/06/26 by Alex Costin]
 // 
 // Editors Contributions: []
 // ----------------------------------------------------------	

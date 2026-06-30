@@ -21,6 +21,9 @@ DEFINE_LOG_CATEGORY(ProgressionWarning);
 DEFINE_LOG_CATEGORY(ProjectileError);
 DEFINE_LOG_CATEGORY(ProjectileWarning);
 
+// PICKUPS LOG CATEGORIES
+DEFINE_LOG_CATEGORY(PickupError);
+DEFINE_LOG_CATEGORY(PickupWarning);
 DebugLogManager::DebugLogManager()
 {
 }
