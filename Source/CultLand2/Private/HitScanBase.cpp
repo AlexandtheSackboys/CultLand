@@ -40,18 +40,29 @@ void UHitScanBase::DrawHitRay(FVector forwardVector,FVector startLocation, bool 
 	_endLocation = (forwardVector * rayRange) + startLocation;
 	// creates a line from the components owner location
 	GetWorld()->LineTraceSingleByChannel(HitResult, startLocation, _endLocation, ECC_Visibility);
+	// calls the debug line trace function to draw the line
+	DebugLineTrace(startLocation);
+	UE_LOG(HitScanError, Error, TEXT("hit ray is shot"));
 
-	if (HitResult.bBlockingHit)
+}
+
+void UHitScanBase::DebugLineTrace(FVector lineOrigin)
+{
+	if (_willDrawDebugLine == true)
 	{
-		// draws the red line when it hits
-		DrawDebugLine(GetWorld(), startLocation, HitResult.Location, FColor::Red, false, 1.f, 0, 1.f);
+
+
+		if (HitResult.bBlockingHit)
+		{
+			// draws the red line when it hits
+			DrawDebugLine(GetWorld(), lineOrigin, HitResult.Location, FColor::Red, false, 1.f, 0, 1.f);
+		}
+		else
+		{
+			// draws the yellow line when it doesn't hit anything
+			DrawDebugLine(GetWorld(), lineOrigin, _endLocation, FColor::Yellow, false, 1.f, 0, 1.f);
+		}
 	}
-	else
-	{
-		// draws the yellow line when it doesn't hit anything
-		DrawDebugLine(GetWorld(), startLocation, _endLocation, FColor::Yellow, false, 1.f, 0, 1.f);
-	}
-	UE_LOG(HitScanError, Error, TEXT("hit ray is drawn"));
 
 }
 
