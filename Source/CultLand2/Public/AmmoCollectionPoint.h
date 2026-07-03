@@ -11,7 +11,7 @@
 // 
 // creation Date: [27/05/26]
 // 
-// last edited: []
+// last edited: [03/07/26]
 // 
 // Editors Contributions: []
 // ----------------------------------------------------------	
@@ -56,7 +56,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Ammo Box")
 	void CollectAmmo(int maxClip);
 
-	UPROPERTY(BlueprintReadOnly, Category = "Ammo")
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Ammo")
 	int _ammoFull;
 
 };
