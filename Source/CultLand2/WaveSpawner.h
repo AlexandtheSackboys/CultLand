@@ -43,6 +43,9 @@ public:
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Setup")
 	TArray<AActor*> _WaveSpawners; // array of other wave spawners to spawn enemies at when unlocking new areas
 
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Setup")
+	TArray<TSubclassOf<AActor>> _enemytypes; // Add the different enemy actors to this array in the editor to spawn them in the waves
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

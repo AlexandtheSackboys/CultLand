@@ -28,6 +28,8 @@ void AWaveSpawner::SpawnWave()
 
 		for (int enemiesSpawned = 0; enemiesSpawned < _enemiesPerWave; enemiesSpawned++)
 		{
+			// Spawns different types of enemies every time this fu
+			TSubclassOf<AActor> EnemyType = _enemytypes[FMath::RandRange(0, _enemytypes.Num() - 1)];
 
 			// Spawns enemies at random spawners in the _WaveSpawners array, which will increase as the player unlocks new areas and more spawners are added to the array
 			int SpawnIncrement = FMath::RandRange(0, SpawnRemainder);
