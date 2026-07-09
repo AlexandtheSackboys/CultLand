@@ -20,7 +20,9 @@ void USpreadHitScan::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 
 void USpreadHitScan::DrawHitRay(FVector forwardVector,FVector startLocation , bool hit, float rayRange)
 {
-	for(int pelletShot = 0; pelletShot < _pelletAmount; pelletShot++)
+	Super::DrawHitRay(forwardVector.Rotation().Vector(), startLocation, hit, rayRange);
+
+	for(int pelletShot = 1; pelletShot < _pelletAmount; pelletShot++)
 	{
 		const float randomSpread = FMath::FRandRange(0, _maxSpreadAngle);
 
