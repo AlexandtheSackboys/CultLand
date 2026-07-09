@@ -28,8 +28,11 @@ void AWaveSpawner::SpawnWave()
 
 		for (int enemiesSpawned = 0; enemiesSpawned < _enemiesPerWave; enemiesSpawned++)
 		{
+			TSubclassOf<AActor> EnemyType;
 			// Spawns different types of enemies every time this fu
-			TSubclassOf<AActor> EnemyType = _enemytypes[FMath::RandRange(0, _enemytypes.Num() - 1)];
+			if (!_enemytypes.IsEmpty())
+				EnemyType = _enemytypes[FMath::RandRange(0, std::max(_enemytypes.Num() - 1, 0))];
+			else break;
 
 			// Spawns enemies at random spawners in the _WaveSpawners array, which will increase as the player unlocks new areas and more spawners are added to the array
 			int SpawnIncrement = FMath::RandRange(0, SpawnRemainder);
@@ -47,7 +50,7 @@ void AWaveSpawner::SpawnWave()
 
 			// figures out the spawn position for each enemy
 			FVector SpawnPos = SpawnPoint->GetActorLocation() + Offset;
-			GetWorld()->SpawnActor<AActor>(_enemyActor, SpawnPos, GetActorRotation(), SpawnParams);
+			GetWorld()->SpawnActor<AActor>(EnemyType, SpawnPos, GetActorRotation(), SpawnParams);
 
 			UE_LOG(LogTemp, Warning, TEXT("Using Spawner Index: %d"), SpawnIncrement);
 		}
