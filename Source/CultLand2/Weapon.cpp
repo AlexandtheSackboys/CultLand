@@ -47,7 +47,7 @@ void AWeapon::RayShoot(float range, UHitScanBase* hitScanner)
 	auto v = DetermineEndPoint(PlayerCam);
 	//CurrentEndPoint = v.endpoint;
 
-	FVector	startLocation = PlayerCam->GetComponentLocation() - FVector(1, 1, 10);
+	FVector	startLocation = PlayerCam->GetComponentLocation() - FVector(0, 1, 10);
 	if (buttonDown)
 	{
 		if (accumulation < WeaponData->FireRate) return;
