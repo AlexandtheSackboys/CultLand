@@ -32,3 +32,9 @@ void ADemonicCreature::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 }
 
+void ADemonicCreature::TargetPlayer(ACharacter* character, FVector position)
+{
+
+
+}
+
