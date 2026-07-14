@@ -69,3 +69,7 @@ Department64 - https://freesound.org/people/Department64/sounds/103046/ // Horne
 Breviceps - https://freesound.org/people/Breviceps/sounds/464839/ // Harpoon shoot
 
 SlykMrByches - https://freesound.org/people/SlykMrByches/sounds/55234/ // enemy shot
+
+modusmogulus - https://freesound.org/people/modusmogulus/sounds/737326/ // chicken FlashBang
+
+Rudmer_Rotteveel - https://freesound.org/people/Rudmer_Rotteveel/sounds/316920/ // demon chicken death
