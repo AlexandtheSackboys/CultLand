@@ -79,3 +79,9 @@ SlykMrByches - https://freesound.org/people/SlykMrByches/sounds/55234/ // enemy 
 modusmogulus - https://freesound.org/people/modusmogulus/sounds/737326/ // chicken FlashBang
 
 Rudmer_Rotteveel - https://freesound.org/people/Rudmer_Rotteveel/sounds/316920/ // demon chicken death
+
+
+randbsoundbites - https://freesound.org/people/randbsoundbites/sounds/797850/ // Player Damage
+
+
+magnuswaker - https://freesound.org/people/magnuswaker/sounds/530919/ // Enemy Death Gore
