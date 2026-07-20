@@ -22,7 +22,10 @@ What if the shooting gameplay and Ridiculous weapons of Call of Duty Zombies mix
 
 
 
-
+* Open Itch.io
+* Search for "The Cult Culler" in the search tab
+* Click on the game and locate the button which says download
+* 
 
 
 
@@ -76,10 +79,4 @@ What if the shooting gameplay and Ridiculous weapons of Call of Duty Zombies mix
 * Hornet Rifle
 * Wild Revolver
 * Vortex Cannon
-
-
-
-
-
-
 
