@@ -11,9 +11,12 @@
 // 
 // creation Date: [20/04/26]
 // 
-// last edited: [04/06/26 by Alex Costin]
+// last edited: [23/07/26 by Alex Costin]
 // 
-// Editors Contributions: [Making the enemies spawn at different wave spawner objects and get added when unlocking new areas]
+// Editors Contributions: [
+// Alex Costin:
+// - Making the enemies spawn at different wave spawner objects and get added when unlocking new areas
+// - Health Drop stuff]
 // ----------------------------------------------------------	
 
 #pragma once
@@ -72,6 +75,12 @@ public:
 	// determines the wave number
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	int WaveNumber = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health Drop Values")
+	int MaxHealthDropValue = 5;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health Drop Values")
+	int HealthDropChanceIncrement = 2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	int Remainder = 2;
