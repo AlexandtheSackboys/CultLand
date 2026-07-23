@@ -42,7 +42,7 @@ void ADemonicCreature::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	CheckforLineTraceHit();
+	// CheckforLineTraceHit();
 }
 
 // Called to bind functionality to input
@@ -62,42 +62,48 @@ void ADemonicCreature::CheckforLineTraceHit()
 	FCollisionQueryParams QueryParams;
 	QueryParams.AddIgnoredActor(this);
 
-	GetWorld()->LineTraceSingleByChannel(Hit, TraceStart, TraceEnd, TraceChannelProperty, QueryParams);
+		GetWorld()->LineTraceSingleByChannel(Hit, TraceStart, TraceEnd, TraceChannelProperty, QueryParams);
 
-	// Visual Debugging Line Trace
-	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::White : FColor::Red, false, 5.0f, 0, 10.0f);
-	UE_LOG(LogTemp, Log, TEXT("Tracing Line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
+		// Visual Debugging Line Trace
+		DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::White : FColor::Red, false, 5.0f, 0, 10.0f);
+		// UE_LOG(LogTemp, Log, TEXT("Tracing Line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
 
-	if (Hit.bBlockingHit && IsValid(Hit.GetActor()) && Hit.GetActor()->Tags.Contains(FName("Player")))
-	{
-		TargetPlayer(Cast<ACharacter>(Hit.GetActor()), Hit.ImpactPoint);
-	}
-	else
-	{
-		// UE_LOG(LogTemp, Log, TEXT("No Actors were hit"));
-	}
+		if (Hit.bBlockingHit && IsValid(Hit.GetActor()) && Hit.GetActor()->Tags.Contains(FName("Player")) && !IsAttacking)
+		{
+			TargetPlayer(Cast<ACharacter>(Hit.GetActor()), Hit.ImpactPoint);
+		}
+		else
+		{
+			// UE_LOG(LogTemp, Log, TEXT("No Actors were hit"));
+		}
 }
 
 void ADemonicCreature::TargetPlayer(ACharacter* character, FVector position)
 {
-	if (IsValid(character) && !IsAttacking)
-	{
 
-		IsAttacking = true;
-		FVector targetLocation = position;
-		float Speed = 5.0f; // Adjust the speed as needed
+	if(IsValid(character))
+	{
+		
+		targetLocation = position;
+		 Speed = 10.0f; // Adjust the speed as needed
 
 		float distanceToTarget = FVector::Dist(GetActorLocation(), targetLocation);
 
 		GetDelayTime = GetWorld()->GetDeltaSeconds() * Speed;
 		FVector ChargeAtEnemy = FMath::Lerp(GetActorLocation(), targetLocation, GetDelayTime);
 		SetActorLocation(ChargeAtEnemy);
-		IsAttacking = false;
+
+		if (GetActorLocation() == targetLocation)
+		{
+			Speed = 0;
+		}
+
 	}
 	else
 	{
 		UE_LOG(LogTemp, Log, TEXT("No valid player character to target"));
 	}
+
 
 
 }

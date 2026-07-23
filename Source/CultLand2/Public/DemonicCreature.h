@@ -46,7 +46,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int AttackCooldown;
+	float AttackCooldown;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collision")
 	float LineTraceRange = 1000.0f;
@@ -54,8 +54,15 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float GetDelayTime;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite) 
+	float Speed;
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool IsAttacking;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FVector targetLocation;
 
 	FTimerHandle AttackTimerHandle;
 
