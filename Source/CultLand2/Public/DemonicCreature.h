@@ -21,6 +21,14 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "../FirstPersonController.h"
+
+#include "Runtime/AIModule/Classes/AIController.h"
+#include "Runtime/AIModule/Classes/Perception/AIPerceptionComponent.h"
+#include <Runtime/AIModule/Classes/Perception/AIPerceptionTypes.h>
+#include "Runtime/AIModule/Classes/Perception/AISenseConfig_Sight.h"
+#include "Runtime/AIModule/Classes/Perception/AISenseConfig_Hearing.h"
+#include "Runtime/AIModule/Classes/Perception/AIPerceptionStimuliSourceComponent.h"
+
 #include "DemonicCreature.generated.h"
 
 
@@ -40,15 +48,52 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int AttackCooldown;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collision")
+	float LineTraceRange = 1000.0f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float GetDelayTime;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool IsAttacking;
 
-public:	
+	FTimerHandle AttackTimerHandle;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "AI")
+	AAIController* AIController;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "AI")
+	UAIPerceptionComponent* AIPerceptionComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "AI")
+	UAIPerceptionStimuliSourceComponent* AIStimuliSourceComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "AI")
+	UAISenseConfig_Sight* AISightConfig;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "AI")
+	UAISenseConfig_Hearing* AIHearingConfig;
+
+	TSubclassOf<UAISense> SenseType;
+
+	UPROPERTY(EditAnywhere, Category = "Collision")
+	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
+
+	UFUNCTION(BlueprintCallable)
+	void OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors);
+
+	UFUNCTION(BlueprintCallable)
+	void OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus);
+
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UFUNCTION(BlueprintCallable)
+	void CheckforLineTraceHit();
 
 	UFUNCTION(BlueprintCallable)
 	void TargetPlayer(ACharacter* character, FVector position);

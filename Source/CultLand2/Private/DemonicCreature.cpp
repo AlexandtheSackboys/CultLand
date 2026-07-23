@@ -6,8 +6,13 @@
 // Sets default values
 ADemonicCreature::ADemonicCreature()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	AIPerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("AIPerceptionComponent"));
+	AIStimuliSourceComponent = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>(TEXT("AIStimulaSourceComponent"));
+	AISightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("AISightConfig"));
+	AIHearingConfig = CreateDefaultSubobject<UAISenseConfig_Hearing>(TEXT("AIHearingConfig"));
 
 }
 
@@ -15,14 +20,29 @@ ADemonicCreature::ADemonicCreature()
 void ADemonicCreature::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	IsAttacking = false;
+	AttackCooldown = 5; // in seconds
+
 }
+
+void ADemonicCreature::OnPerceptionUpdated(const TArray<AActor*>& UpdatedActors)
+{
+
+
+}
+
+void ADemonicCreature::OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
+{
+}
+
 
 // Called every frame
 void ADemonicCreature::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	CheckforLineTraceHit();
 }
 
 // Called to bind functionality to input
@@ -32,9 +52,52 @@ void ADemonicCreature::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 }
 
+void ADemonicCreature::CheckforLineTraceHit()
+{
+	FHitResult Hit;
+
+	FVector TraceStart = GetActorLocation();
+	FVector TraceEnd = GetActorLocation() + GetActorForwardVector() * LineTraceRange; // Lines traces until 1000cm infront of the enemy
+
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+
+	GetWorld()->LineTraceSingleByChannel(Hit, TraceStart, TraceEnd, TraceChannelProperty, QueryParams);
+
+	// Visual Debugging Line Trace
+	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::White : FColor::Red, false, 5.0f, 0, 10.0f);
+	UE_LOG(LogTemp, Log, TEXT("Tracing Line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
+
+	if (Hit.bBlockingHit && IsValid(Hit.GetActor()) && Hit.GetActor()->Tags.Contains(FName("Player")))
+	{
+		TargetPlayer(Cast<ACharacter>(Hit.GetActor()), Hit.ImpactPoint);
+	}
+	else
+	{
+		// UE_LOG(LogTemp, Log, TEXT("No Actors were hit"));
+	}
+}
+
 void ADemonicCreature::TargetPlayer(ACharacter* character, FVector position)
 {
+	if (IsValid(character) && !IsAttacking)
+	{
+
+		IsAttacking = true;
+		FVector targetLocation = position;
+		float Speed = 5.0f; // Adjust the speed as needed
+
+		float distanceToTarget = FVector::Dist(GetActorLocation(), targetLocation);
+
+		GetDelayTime = GetWorld()->GetDeltaSeconds() * Speed;
+		FVector ChargeAtEnemy = FMath::Lerp(GetActorLocation(), targetLocation, GetDelayTime);
+		SetActorLocation(ChargeAtEnemy);
+		IsAttacking = false;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Log, TEXT("No valid player character to target"));
+	}
 
 
 }
-
