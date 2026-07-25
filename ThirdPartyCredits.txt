@@ -98,3 +98,5 @@ randbsoundbites - https://freesound.org/people/randbsoundbites/sounds/797850/ //
 
 
 magnuswaker - https://freesound.org/people/magnuswaker/sounds/530919/ // Enemy Death Gore
+
+TreyHolton - https://freesound.org/people/TreyHolton/sounds/252018/ // Cost Increasing for wacky weapons (tunnel laugh) sfx
