@@ -11,12 +11,13 @@
 // 
 // creation Date: [20/04/26]
 // 
-// last edited: [23/07/26 by Alex Costin]
+// last edited: [24/07/26 by Alex Costin]
 // 
 // Editors Contributions: [
 // Alex Costin:
 // - Making the enemies spawn at different wave spawner objects and get added when unlocking new areas
-// - Health Drop stuff]
+// - Health Drop stuff
+// - Purchase variables for increasing weapon costs]
 // ----------------------------------------------------------	
 
 #pragma once
@@ -92,6 +93,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Reset Values")
 	bool CanPickupWeapon = true;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Purchasing Values")
+	bool _canIncreaseCost = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Purchasing Values")
+	int _waveDivider = 3;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Purchasing Values")
+	int _costIncrease = 5;
 
 
 
