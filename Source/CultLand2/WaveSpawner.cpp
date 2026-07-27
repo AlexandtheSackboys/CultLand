@@ -2,6 +2,7 @@
 
 
 #include "WaveSpawner.h"
+#include "Kismet/GameplayStatics.h"
 
 
 
@@ -24,9 +25,14 @@ void AWaveSpawner::SpawnWave()
 {
 	if (CurrentEnemyCount <= 0 && _WaveSpawners.Num() > 0) 
 	{
+
+		int PreviousSpawnIncrement = 9999;
+
+		 UGameplayStatics::PlaySoundAtLocation(this, _spawnerSFX, GetActorLocation(), GetActorRotation(), 0.5f);
+
 		int SpawnRemainder = _WaveSpawners.Num() - Remainder;
 
-		for (int enemiesSpawned = 0; enemiesSpawned < _enemiesPerWave; enemiesSpawned++)
+		for (int enemiesSpawned = 0; enemiesSpawned < _enemiesPerWave;)
 		{
 			TSubclassOf<AActor> EnemyType;
 			// Spawns different types of enemies every time this fu
@@ -36,16 +42,22 @@ void AWaveSpawner::SpawnWave()
 
 			// Spawns enemies at random spawners in the _WaveSpawners array, which will increase as the player unlocks new areas and more spawners are added to the array
 			int SpawnIncrement = FMath::RandRange(0, SpawnRemainder);
-			
-			AActor* SpawnPoint = _WaveSpawners[SpawnIncrement];	
+			AActor* SpawnPoint = _WaveSpawners[SpawnIncrement];
+
+			if(SpawnIncrement != PreviousSpawnIncrement) 
+			{
+				enemiesSpawned++;
+				PreviousSpawnIncrement = SpawnIncrement;
+				continue;
+			}
 
 			if (!SpawnPoint) continue;
 
 			FVector Offset = FVector(FMath::RandRange(-100.f, 100.f), FMath::RandRange(-100.f, 100.f), 0.f); // random offset to spawn enemies in a wider area around the spawn point
-	
+
 			// ensures that enemies will spawn even if there are other actors in the way, and will adjust their position to prevent collisions if possible
 			FActorSpawnParameters SpawnParams;
-			SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn; 
+			SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
 
 			// figures out the spawn position for each enemy
@@ -53,10 +65,17 @@ void AWaveSpawner::SpawnWave()
 			GetWorld()->SpawnActor<AActor>(EnemyType, SpawnPos, GetActorRotation(), SpawnParams);
 
 			UE_LOG(LogTemp, Warning, TEXT("Using Spawner Index: %d"), SpawnIncrement);
+			
+
 		}
+
+		UE_LOG(LogTemp, Warning, TEXT("Current Enemy Count: %d"), CurrentEnemyCount);
+
 		WaveNumber = WaveNumber + 1;
 		CurrentEnemyCount = _enemiesPerWave;
 		_enemiesPerWave = _enemiesPerWave + 2; // increase the amount of enemies that will spawn in the next wave by 2
+	//	_enemiesPerWave = FMath::Clamp(_enemiesPerWave, MinAmountOfEnemies, MaxAmountOfEnemies); // Clamp amount of overall enemies that can be spawned
+
 		MaxHealthDropValue = MaxHealthDropValue + HealthDropChanceIncrement; // will decrease the chance of a health pickup dropping
 		CanPickupWeapon = true;
 		

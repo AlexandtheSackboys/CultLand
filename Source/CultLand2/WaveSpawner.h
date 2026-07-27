@@ -11,13 +11,16 @@
 // 
 // creation Date: [20/04/26]
 // 
-// last edited: [24/07/26 by Alex Costin]
+// last edited: [27/07/26 by Charlie Wargent]
 // 
 // Editors Contributions: [
 // Alex Costin:
 // - Making the enemies spawn at different wave spawner objects and get added when unlocking new areas
 // - Health Drop stuff
 // - Purchase variables for increasing weapon costs]
+// 
+// Charlie Wargent:
+// - Added a clamp to the amount of enemies that can overall spawn throughout the entire game
 // ----------------------------------------------------------	
 
 #pragma once
@@ -65,6 +68,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	float _spawnDelay;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio")
+	USoundBase* _spawnerSFX;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -85,6 +91,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	int Remainder = 2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
+	int MinAmountOfEnemies = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
+	int MaxAmountOfEnemies = 25;
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
