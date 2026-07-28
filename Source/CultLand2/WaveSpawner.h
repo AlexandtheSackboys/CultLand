@@ -17,10 +17,11 @@
 // Alex Costin:
 // - Making the enemies spawn at different wave spawner objects and get added when unlocking new areas
 // - Health Drop stuff
-// - Purchase variables for increasing weapon costs]
+// - Purchase variables for increasing weapon costs
+// - Fixing Wave increments
 // 
 // Charlie Wargent:
-// - Added a clamp to the amount of enemies that can overall spawn throughout the entire game
+// - Added a clamp to the amount of enemies that can overall spawn throughout the entire game]
 // ----------------------------------------------------------	
 
 #pragma once

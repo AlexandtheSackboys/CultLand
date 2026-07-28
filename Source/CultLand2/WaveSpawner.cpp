@@ -23,7 +23,7 @@ void AWaveSpawner::BeginPlay()
 
 void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 {
-	if (CurrentEnemyCount <= 0 && _WaveSpawners.Num() > 0) 
+	if (CurrentEnemyCount <= 1 && _WaveSpawners.Num() >= 0) 
 	{
 
 		//int PreviousSpawnIncrement = 0;
@@ -32,7 +32,7 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 
 		int SpawnRemainder = _WaveSpawners.Num() - Remainder;
 
-		for (int enemiesSpawned = 0; enemiesSpawned < _enemiesPerWave;)
+		for (int enemiesSpawned = 0; enemiesSpawned <= _enemiesPerWave; enemiesSpawned++)
 		{
 			TSubclassOf<AActor> EnemyType;
 			// Spawns different types of enemies every time this fu
@@ -75,8 +75,6 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 			UE_LOG(LogTemp, Warning, TEXT("Using Spawner Index: %d"), SpawnIncrement);
 
 			//PreviousSpawnIncrement = SpawnIncrement;
-			enemiesSpawned++;
-
 		}
 
 		UE_LOG(LogTemp, Warning, TEXT("Current Enemy Count: %d"), CurrentEnemyCount);
