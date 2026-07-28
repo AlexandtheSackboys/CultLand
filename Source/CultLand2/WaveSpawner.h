@@ -11,7 +11,7 @@
 // 
 // creation Date: [20/04/26]
 // 
-// last edited: [27/07/26 by Charlie Wargent]
+// last edited: [28/07/26 by Alex Costin]
 // 
 // Editors Contributions: [
 // Alex Costin:
@@ -42,7 +42,7 @@ public:
 	AWaveSpawner();
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void SpawnWave();
+	void SpawnWave(float minSpawnPosition, float maxSpawnPosition);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup")
 	TMap<int, TSubclassOf<AActor>> _enemyWaves;
@@ -57,8 +57,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup")
-	TSubclassOf<AActor> _enemyActor;
+	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup")
+	TSubclassOf<AActor> _enemyActor;*/
 
 	// determines the amount of enemies that will spawn in each wave
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
@@ -67,6 +67,7 @@ protected:
 	// the time between the last and next wave
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	float _spawnDelay;
+
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio")
 	USoundBase* _spawnerSFX;

@@ -21,12 +21,12 @@ void AWaveSpawner::BeginPlay()
 
 }
 
-void AWaveSpawner::SpawnWave()
+void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 {
 	if (CurrentEnemyCount <= 0 && _WaveSpawners.Num() > 0) 
 	{
 
-		int PreviousSpawnIncrement = 9999;
+		//int PreviousSpawnIncrement = 0;
 
 		 UGameplayStatics::PlaySoundAtLocation(this, _spawnerSFX, GetActorLocation(), GetActorRotation(), 0.5f);
 
@@ -37,24 +37,31 @@ void AWaveSpawner::SpawnWave()
 			TSubclassOf<AActor> EnemyType;
 			// Spawns different types of enemies every time this fu
 			if (!_enemytypes.IsEmpty())
-				EnemyType = _enemytypes[FMath::RandRange(0, std::max(_enemytypes.Num() - 1, 0))];
+				EnemyType = _enemytypes[FMath::RandRange(0, std::max(0, _enemytypes.Num() - 1))];
 			else break;
 
 			// Spawns enemies at random spawners in the _WaveSpawners array, which will increase as the player unlocks new areas and more spawners are added to the array
 			int SpawnIncrement = FMath::RandRange(0, SpawnRemainder);
 			AActor* SpawnPoint = _WaveSpawners[SpawnIncrement];
 
-			if(SpawnIncrement != PreviousSpawnIncrement) 
-			{
-				enemiesSpawned++;
-				PreviousSpawnIncrement = SpawnIncrement;
-				continue;
-			}
+			//if(SpawnIncrement == PreviousSpawnIncrement) 
+			//{
+			//	if (SpawnIncrement == 0)
+			//	{
+			//		AActor* SpawnPoint = _WaveSpawners[SpawnIncrement + 1];
+			//	}
+			//	else
+			//	{
+			//		SpawnPoint = _WaveSpawners[SpawnIncrement - 1];
+			//	}
+			//}
 
 			if (!SpawnPoint) continue;
 
-			FVector Offset = FVector(FMath::RandRange(-100.f, 100.f), FMath::RandRange(-100.f, 100.f), 0.f); // random offset to spawn enemies in a wider area around the spawn point
-
+			// random offset to spawn enemies in a wider area around the spawn point
+			FVector Offset = FVector(FMath::RandRange(minSpawnPosition, maxSpawnPosition), FMath::RandRange(minSpawnPosition, maxSpawnPosition),
+				SpawnPoint->GetActorLocation().Z); 
+			
 			// ensures that enemies will spawn even if there are other actors in the way, and will adjust their position to prevent collisions if possible
 			FActorSpawnParameters SpawnParams;
 			SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
@@ -62,10 +69,13 @@ void AWaveSpawner::SpawnWave()
 
 			// figures out the spawn position for each enemy
 			FVector SpawnPos = SpawnPoint->GetActorLocation() + Offset;
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Spawning enemy at: %s"), *SpawnPos.ToString()));
 			GetWorld()->SpawnActor<AActor>(EnemyType, SpawnPos, GetActorRotation(), SpawnParams);
 
 			UE_LOG(LogTemp, Warning, TEXT("Using Spawner Index: %d"), SpawnIncrement);
-			
+
+			//PreviousSpawnIncrement = SpawnIncrement;
+			enemiesSpawned++;
 
 		}
 
