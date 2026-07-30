@@ -29,7 +29,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Public/DebugLogManager.h"
+
 #include "WaveSpawner.generated.h"
+
 
 UCLASS(Blueprintable)
 class CULTLAND2_API AWaveSpawner : public AActor
@@ -39,6 +41,7 @@ class CULTLAND2_API AWaveSpawner : public AActor
 public:	
 	// Sets default values for this actor's properties
 
+	 class ADoor;
 
 	AWaveSpawner();
 
@@ -53,6 +56,7 @@ public:
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Setup")
 	TArray<TSubclassOf<AActor>> _enemytypes; // Add the different enemy actors to this array in the editor to spawn them in the waves
+
 
 protected:
 	// Called when the game starts or when spawned

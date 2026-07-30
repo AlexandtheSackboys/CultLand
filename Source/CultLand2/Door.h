@@ -28,7 +28,6 @@
 #include "WaveSpawner.h"
 #include "Door.generated.h"
 
-
 UCLASS()
 class CULTLAND2_API ADoor : public AActor
 {
@@ -42,6 +41,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UFUNCTION(BlueprintCallable, Category = "Door")
 	void OpenDoor();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")

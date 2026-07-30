@@ -46,30 +46,28 @@ void ADoor::BeginPlay()
 
 void ADoor::OpenDoor()
 {
-	bIsOpen = true;
-	UGameplayStatics::PlaySoundAtLocation(_mesh, _doorOpenSound, GetActorLocation(), GetActorRotation());
+	if (!bIsOpen && _waveSpawner) // check if the door is already open && null check to prevent crashes if the wave spawner is not set 
+	{
+		if (_waveSpawner->WaveNumber >= WaveCapacity)
+		{
+			bIsOpen = true;
+			UGameplayStatics::PlaySoundAtLocation(_mesh, _doorOpenSound, GetActorLocation(), GetActorRotation());
 
-	UE_LOG(LogTemp, Warning, TEXT("Door opened"));
+			UE_LOG(LogTemp, Warning, TEXT("Door opened"));
 
-	_collisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision); // disable collision to allow passthrough
+			_collisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision); // disable collision to allow passthrough
 
-	Destroy(); // destroy the door actor to open the path for the player
+			Destroy(); // destroy the door actor to open the path for the player
 
-	_waveSpawner->Remainder--; 
+			_waveSpawner->Remainder--;
+		}
+	}
 }
 
 // Called every frame
 void ADoor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (!bIsOpen && _waveSpawner) // check if the door is already open && null check to prevent crashes if the wave spawner is not set 
-	{
-		if (_waveSpawner->WaveNumber >= WaveCapacity)
-		{
-			OpenDoor(); 
-		}
-	}
 
 }
 
