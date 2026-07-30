@@ -11,7 +11,7 @@
 // 
 // creation Date: [20/04/26]
 // 
-// last edited: [28/07/26 by Alex Costin]
+// last edited: [29/07/26 by Charlie Wargent]
 // 
 // Editors Contributions: [
 // Alex Costin:
@@ -21,7 +21,7 @@
 // - Fixing Wave increments
 // 
 // Charlie Wargent:
-// - Added a clamp to the amount of enemies that can overall spawn throughout the entire game]
+// - Took the function call out of tick to stop it crashing
 // ----------------------------------------------------------	
 
 #pragma once
