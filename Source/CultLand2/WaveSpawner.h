@@ -11,7 +11,7 @@
 // 
 // creation Date: [20/04/26]
 // 
-// last edited: [30/07/26 by Charlie Wargent]
+// last edited: [30/07/26 by Mikyle]
 // 
 // Editors Contributions: [
 // Alex Costin:
@@ -22,6 +22,9 @@
 // 
 // Charlie Wargent:
 // - Took the function call out of tick to stop it crashing
+// 
+// Mikyle:
+// - Fixed enemies spawning inside of each other sometimes
 // ----------------------------------------------------------	
 
 #pragma once
