@@ -46,11 +46,11 @@ void ADoor::BeginPlay()
 
 void ADoor::OpenDoor()
 {
-	if (!bIsOpen && _waveSpawner) // check if the door is already open && null check to prevent crashes if the wave spawner is not set 
+	if (_waveSpawner) // check if the door is already open && null check to prevent crashes if the wave spawner is not set 
 	{
 		if (_waveSpawner->WaveNumber >= WaveCapacity)
 		{
-			bIsOpen = true;
+
 			UGameplayStatics::PlaySoundAtLocation(_mesh, _doorOpenSound, GetActorLocation(), GetActorRotation());
 
 			UE_LOG(LogTemp, Warning, TEXT("Door opened"));

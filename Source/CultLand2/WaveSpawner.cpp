@@ -43,7 +43,6 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 			// Spawns enemies at random spawners in the _WaveSpawners array, which will increase as the player unlocks new areas and more spawners are added to the array
 			int SpawnIncrement = FMath::RandRange(0, SpawnRemainder);
 			AActor* SpawnPoint = _WaveSpawners[SpawnIncrement];
-
 			//if(SpawnIncrement == PreviousSpawnIncrement) 
 			//{
 			//	if (SpawnIncrement == 0)
