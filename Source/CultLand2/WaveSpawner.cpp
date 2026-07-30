@@ -23,8 +23,6 @@ void AWaveSpawner::BeginPlay()
 
 void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 {
-	TArray<FVector> SpawnLocs;
-	float ExclusionaryRadius = 50.f;
 	if (CurrentEnemyCount <= 1 && _WaveSpawners.Num() >= 0) 
 	{
 
@@ -33,6 +31,10 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 		 UGameplayStatics::PlaySoundAtLocation(this, _spawnerSFX, GetActorLocation(), GetActorRotation(), 0.5f);
 
 		int SpawnRemainder = _WaveSpawners.Num() - Remainder;
+		TArray<FVector> SpawnLocs;
+
+		//Raise this number to spawn enemies further apart
+		float ExclusionaryRadius = 100.f;
 
 		for (int enemiesSpawned = 0; enemiesSpawned <= _enemiesPerWave; enemiesSpawned++)
 		{
@@ -82,13 +84,21 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 
 				if (FVector::Dist(SpawnPos, closestSpawn) < ExclusionaryRadius)
 				{
-					auto NormalizedVec = SpawnPos - closestSpawn;
-					NormalizedVec.Normalize();
-					SpawnPos += NormalizedVec * (ExclusionaryRadius - FVector::Dist(SpawnPos, closestSpawn));
+					auto dir = SpawnPos - closestSpawn;
+					dir.Normalize();
+					
+					if (!dir.Normalize()) 
+					{
+						dir = FVector(1.f, 0.f, 0.f);            
+					}
+
+					SpawnPos += dir * (ExclusionaryRadius - FVector::Dist(SpawnPos, closestSpawn));
 				}
 			}
 
 			while (FVector::Dist(SpawnPos, closestSpawn) < ExclusionaryRadius);
+
+			SpawnLocs.Add(SpawnPos);
 			
 			// ensures that enemies will spawn even if there are other actors in the way, and will adjust their position to prevent collisions if possible
 			FActorSpawnParameters SpawnParams;
