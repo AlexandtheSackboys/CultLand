@@ -98,8 +98,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health Drop Values")
 	int HealthDropChanceIncrement = 2;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
-	int Remainder = 2;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Wave Values", meta = (ClampMin = "7", ClampMax = "9999"))
+	int Remainder;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	int MinAmountOfEnemies = 0;
