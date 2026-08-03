@@ -62,6 +62,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Door")
 	UStaticMeshComponent* _mesh;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup")
+	TArray<AActor*> SpawnersActivated;
+
 private: 
 	bool bIsOpen = false;
 

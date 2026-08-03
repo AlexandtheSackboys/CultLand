@@ -59,7 +59,7 @@ void ADoor::OpenDoor()
 
 			Destroy(); // destroy the door actor to open the path for the player
 
-			_waveSpawner->Remainder--;
+			_waveSpawner->_WaveSpawners.Append(SpawnersActivated);
 		}
 	}
 }
