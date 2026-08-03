@@ -101,6 +101,13 @@ magnuswaker - https://freesound.org/people/magnuswaker/sounds/530919/ // Enemy D
 
 TreyHolton - https://freesound.org/people/TreyHolton/sounds/252018/ // Cost Increasing for wacky weapons (tunnel laugh) sfx
 
+BBBBilly - https://freesound.org/people/BBBBilly/sounds/653032/ // Ammo_Pickup SFXX
+
+Sound Dino - https://sounddino.com/en/effects/creak/ // replacement gate/door creak open
+
+Zott820 - https://freesound.org/people/Zott820/sounds/209578/ // Purchasing Wacky Weapon
+
+
 
 
 Pixabay:
