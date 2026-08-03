@@ -67,6 +67,8 @@ Romunql - https://www.fab.com/listings/7f73e571-0674-487d-81ae-643792e01617
 
 ScratchBattles - https://squaremeapixel.itch.io/blood-screen-effects // Damage blood border texture
 
+Skeleton Hand by Zhale - https://sketchfab.com/3d-models/skeleton-hand-a4bf7eabaca24985b3aa2dbfc2d369ca
+
 
 Freesound:
 
@@ -106,6 +108,8 @@ BBBBilly - https://freesound.org/people/BBBBilly/sounds/653032/ // Ammo_Pickup S
 Sound Dino - https://sounddino.com/en/effects/creak/ // replacement gate/door creak open
 
 Zott820 - https://freesound.org/people/Zott820/sounds/209578/ // Purchasing Wacky Weapon
+
+
 
 
 
