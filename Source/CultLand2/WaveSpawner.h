@@ -33,7 +33,10 @@
 #include "GameFramework/Actor.h"
 #include "Public/DebugLogManager.h"
 
+
 #include "WaveSpawner.generated.h"
+
+class ADoor;
 
 
 UCLASS(Blueprintable)
@@ -43,8 +46,6 @@ class CULTLAND2_API AWaveSpawner : public AActor
 	
 public:	
 	// Sets default values for this actor's properties
-
-	 class ADoor;
 
 	AWaveSpawner();
 
@@ -59,6 +60,9 @@ public:
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Setup")
 	TArray<TSubclassOf<AActor>> _enemytypes; // Add the different enemy actors to this array in the editor to spawn them in the waves
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door Class")
+	TArray<ADoor*> LevelDoors;
 
 
 protected:
@@ -79,6 +83,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio")
 	USoundBase* _spawnerSFX;
+
 
 public:	
 	// Called every frame
@@ -108,8 +113,6 @@ public:
 	int MaxAmountOfEnemies = 25;
 
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
-	TArray<AActor*> _amountOfDoors;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Reset Values")
 	bool CanPickupWeapon = true;
@@ -122,6 +125,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Purchasing Values")
 	int _costIncrease = 5;
+
+	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, Category = "Door");
+	bool bIsDoorOpen = false;
+
+	UFUNCTION(BlueprintCallable)
+	void WaveFinished();
 
 
 

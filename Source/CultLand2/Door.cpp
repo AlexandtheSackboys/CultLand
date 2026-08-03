@@ -22,11 +22,11 @@ void ADoor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// null checks 
-	if (_waveSpawner == nullptr)
+	 // null checks 
+	/* if (_waveSpawner == nullptr)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Wave spawner not set on door: %s"), *GetName());
-	}
+	} */
 
 	if (_doorOpenSound == nullptr)
 	{
@@ -46,10 +46,7 @@ void ADoor::BeginPlay()
 
 void ADoor::OpenDoor()
 {
-	if (_waveSpawner) // check if the door is already open && null check to prevent crashes if the wave spawner is not set 
-	{
-		if (_waveSpawner->WaveNumber >= WaveCapacity)
-		{
+
 
 			UGameplayStatics::PlaySoundAtLocation(_mesh, _doorOpenSound, GetActorLocation(), GetActorRotation());
 
@@ -59,9 +56,6 @@ void ADoor::OpenDoor()
 
 			Destroy(); // destroy the door actor to open the path for the player
 
-			_waveSpawner->_WaveSpawners.Append(SpawnersActivated);
-		}
-	}
 }
 
 // Called every frame

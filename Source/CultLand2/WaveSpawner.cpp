@@ -2,6 +2,7 @@
 
 
 #include "WaveSpawner.h"
+#include "Door.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -157,5 +158,20 @@ void AWaveSpawner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void AWaveSpawner::WaveFinished()
+{
+
+	if (!bIsDoorOpen && WaveNumber >= LevelDoors[0]->WaveCapacity)
+	{
+		bIsDoorOpen = true;
+		LevelDoors[0]->OpenDoor();
+
+
+		_WaveSpawners.Append(LevelDoors[0]->SpawnersActivated);
+
+
+	}
 }
 

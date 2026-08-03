@@ -25,7 +25,6 @@
 #include "Public/DebugLogManager.h"
 #include "Components/BoxComponent.h"
 #include "Sound/SoundBase.h"
-#include "WaveSpawner.h"
 #include "Door.generated.h"
 
 UCLASS()
@@ -37,15 +36,20 @@ public:
 	// Sets default values for this actor's properties
 	ADoor();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
+	int WaveCapacity;
 
 	UFUNCTION(BlueprintCallable, Category = "Door")
 	void OpenDoor();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
-	int WaveCapacity;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup")
+	TArray<AActor*> SpawnersActivated;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
 	USoundBase* _doorOpenSound;
@@ -53,8 +57,6 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TArray<AActor*> _doorsAmount;
 
-	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Setup")
-	AWaveSpawner* _waveSpawner;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
 	UBoxComponent* _collisionBox;
@@ -62,8 +64,6 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Door")
 	UStaticMeshComponent* _mesh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup")
-	TArray<AActor*> SpawnersActivated;
 
 private: 
 	bool bIsOpen = false;
