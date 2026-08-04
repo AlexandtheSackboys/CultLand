@@ -147,6 +147,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Purchasing Values")
 	int _costIncrease = 5;
 
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Purchasing Values")
+	int _maxPickupCost = 50;
+
 	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, Category = "Door");
 	bool bIsDoorOpen = false;
 
