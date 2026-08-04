@@ -25,7 +25,7 @@ void AWaveSpawner::BeginPlay()
 
 void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 {
-	if (CurrentEnemyCount <= 1 && _WaveSpawners.Num() >= 0) 
+	if (CurrentEnemyCount <= _lastEnemyCount && _WaveSpawners.Num() >= 0) 
 	{
 
 		//int PreviousSpawnIncrement = 0;

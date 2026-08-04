@@ -83,6 +83,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	float _spawnDelay;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values", META = (ClampMin = 0, ClampMax = 1))
+	int _lastEnemyCount = 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio")
 	USoundBase* _spawnerSFX;
