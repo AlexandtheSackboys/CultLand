@@ -11,7 +11,7 @@
 // 
 // creation Date: [20/04/26]
 // 
-// last edited: [4/08/26 by Charlie]
+// last edited: [04/08/26 by Alex Costin]
 // 
 // Editors Contributions: [
 // Alex Costin:
@@ -19,6 +19,7 @@
 // - Health Drop stuff
 // - Purchase variables for increasing weapon costs
 // - Fixing Wave increments
+// - limit the amount of an enemy type (Demon chicken)
 // 
 // Charlie Wargent:
 // - Created the Wave spawner that spawns enemies based on a wave system created 
@@ -61,7 +62,7 @@ public:
 	TArray<AActor*> _WaveSpawners; // array of other wave spawners to spawn enemies at when unlocking new areas
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Setup")
-	TArray<TSubclassOf<AActor>> _enemytypes; // Add the different enemy actors to this array in the editor to spawn them in the waves
+	TArray<TSubclassOf<AActor>> _enemyTypes; // Add the different enemy actors to this array in the editor to spawn them in the waves
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door Class")
 	TArray<ADoor*> LevelDoors;
@@ -89,7 +90,23 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	float ExclusionaryRadius = 10.f;  //Raise this number to spawn enemies further apart
 
-	int DoorIndex = 0;
+	int _enemyTypeIncrement = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemies")
+	int _enemyLimiter = 5;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemies", META = (ClampMin = 0, ClampMax = 3))
+	int _defaultEnemyIndex = 0;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Enemies", META = (ClampMin = 0, ClampMax = 3))
+	int _excludeEnemyIndex = 1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemies")
+	bool _canLimitTypes = true;
+
+	// help with SpawnWave function
+	TSubclassOf<AActor> _selectedEnemy;
+	void LimitEnemyType(int excludeIndex);
 
 public:	
 	// Called every frame

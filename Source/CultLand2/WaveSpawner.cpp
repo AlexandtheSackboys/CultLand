@@ -4,6 +4,7 @@
 #include "WaveSpawner.h"
 #include "Door.h"
 #include "Kismet/GameplayStatics.h"
+#include <string>
 
 
 
@@ -37,10 +38,10 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 
 		for (int enemiesSpawned = 0; enemiesSpawned <= _enemiesPerWave; enemiesSpawned++)
 		{
-			TSubclassOf<AActor> EnemyType;
+
 			// Spawns different types of enemies every time this fu
-			if (!_enemytypes.IsEmpty())
-				EnemyType = _enemytypes[FMath::RandRange(0, std::max(0, _enemytypes.Num() - 1))];
+			if (!_enemyTypes.IsEmpty())
+				_selectedEnemy = _enemyTypes[FMath::RandRange(0, std::max(0, _enemyTypes.Num() - 1))];
 			else break;
 
 			// Spawns enemies at random spawners in the _WaveSpawners array, which will increase as the player unlocks new areas and more spawners are added to the array
@@ -97,7 +98,6 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 			}
 			while (FVector::Dist(SpawnPos, closestSpawn) < ExclusionaryRadius);
 
-
 			//if (FVector::Dist(SpawnPos, closestSpawn) < ExclusionaryRadius)
 			//{
 			//	for (auto& i : SpawnLocs)
@@ -121,6 +121,14 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 			//		SpawnPos += dir * (ExclusionaryRadius - FVector::Dist(SpawnPos, closestSpawn));
 			//	}
 			//}
+
+			
+			if(_canLimitTypes)
+			{ 
+				LimitEnemyType(_excludeEnemyIndex);
+
+			}
+
 			SpawnLocs.Add(SpawnPos);
 			
 			// ensures that enemies will spawn even if there are other actors in the way, and will adjust their position to prevent collisions if possible
@@ -129,7 +137,7 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 
 
 			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Spawning enemy at: %s"), *SpawnPos.ToString()));
-			GetWorld()->SpawnActor<AActor>(EnemyType, SpawnPos, GetActorRotation(), SpawnParams);
+			GetWorld()->SpawnActor<AActor>(_selectedEnemy, SpawnPos, GetActorRotation(), SpawnParams);
 
 			UE_LOG(LogTemp, Warning, TEXT("Using Spawner Index: %d"), SpawnIncrement);
 
@@ -145,12 +153,34 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 
 		MaxHealthDropValue = MaxHealthDropValue + HealthDropChanceIncrement; // will decrease the chance of a health pickup dropping
 		CanPickupWeapon = true;
+		_enemyTypeIncrement = 0;
 		
 		SpawnerAdditionCheck();
 	}
 
 }
 
+
+void AWaveSpawner::LimitEnemyType(int excludeIndex)
+{
+
+	// ensures that Chicken demon doesn't spawn more than 5 times in a wave
+	if (_selectedEnemy == _enemyTypes[excludeIndex])
+	{
+
+		if (_enemyTypeIncrement < _enemyLimiter)
+		{
+			_enemyTypeIncrement++;
+			return;
+		}
+		else
+		{
+			// will select the cultist instead
+			_selectedEnemy = _enemyTypes[_defaultEnemyIndex];
+		}
+
+	}
+}
 
 // Called every frame
 void AWaveSpawner::Tick(float DeltaTime)
