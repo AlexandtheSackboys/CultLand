@@ -11,9 +11,15 @@
 // 
 // creation Date: [27/4/2026]
 // 
-// last edited: [21/05/26 by Alex Costin]
+// last edited: [04/08/26 by Alex Costin]
 // 
-// Editors Contributions: [DebugLogManager]
+// Editors Contributions: [
+// 
+// Alex Costin: 
+// - Destroying the Level Door 
+// - DebugLogManager
+// ]
+// 
 // ----------------------------------------------------------	
 
 

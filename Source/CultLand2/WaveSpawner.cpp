@@ -31,11 +31,9 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 
 		 UGameplayStatics::PlaySoundAtLocation(this, _spawnerSFX, GetActorLocation(), GetActorRotation(), 0.5f);
 
-		 int SpawnRemainder = _WaveSpawners.Num() - Remainder;
+		 int SpawnRemainder = _WaveSpawners.Num() - 1;
 		TArray<FVector> SpawnLocs;
 
-		//Raise this number to spawn enemies further apart
-		float ExclusionaryRadius = 5.f;
 
 		for (int enemiesSpawned = 0; enemiesSpawned <= _enemiesPerWave; enemiesSpawned++)
 		{
@@ -47,7 +45,7 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 
 			// Spawns enemies at random spawners in the _WaveSpawners array, which will increase as the player unlocks new areas and more spawners are added to the array
 			int SpawnIncrement = FMath::RandRange(0, SpawnRemainder);
-			UE_LOG(LogTemp, Warning, TEXT("SpawnRemainder bollocks: %i"), SpawnRemainder);
+			UE_LOG(LogTemp, Warning, TEXT("SpawnRemainder: %i"), SpawnRemainder);
 			AActor* SpawnPoint = _WaveSpawners[SpawnIncrement];
 
 			//if(SpawnIncrement == PreviousSpawnIncrement) 
@@ -148,6 +146,7 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 		MaxHealthDropValue = MaxHealthDropValue + HealthDropChanceIncrement; // will decrease the chance of a health pickup dropping
 		CanPickupWeapon = true;
 		
+		SpawnerAdditionCheck();
 	}
 
 }
@@ -160,18 +159,28 @@ void AWaveSpawner::Tick(float DeltaTime)
 
 }
 
-void AWaveSpawner::WaveFinished()
+void AWaveSpawner::SpawnerAdditionCheck()
 {
 
 	if (!bIsDoorOpen && WaveNumber >= LevelDoors[0]->WaveCapacity)
 	{
-		bIsDoorOpen = true;
-		LevelDoors[0]->OpenDoor();
-
 
 		_WaveSpawners.Append(LevelDoors[0]->SpawnersActivated);
 
+		LevelDoors[0]->OpenDoor();
+		LevelDoors.RemoveAt(0);
+
+		bIsDoorOpen = true;
+
+		//DoorIndex++;
+		
+		return;
 
 	}
+	else 
+	{
+		bIsDoorOpen = false;
+	}
+	return;
 }
 

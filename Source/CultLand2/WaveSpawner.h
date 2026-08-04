@@ -5,13 +5,13 @@
 // 
 // Author: [Alex Costin]
 // 
-// Editors: [Charlie Wargent]
+// Editors: [Charlie Wargent, Mikyle Yakub]
 // 
 // Description: [the Wave Spawner class responsible for spawning enemy waves]
 // 
 // creation Date: [20/04/26]
 // 
-// last edited: [30/07/26 by Mikyle]
+// last edited: [4/08/26 by Charlie]
 // 
 // Editors Contributions: [
 // Alex Costin:
@@ -21,7 +21,9 @@
 // - Fixing Wave increments
 // 
 // Charlie Wargent:
+// - Created the Wave spawner that spawns enemies based on a wave system created 
 // - Took the function call out of tick to stop it crashing
+// - Made Exclusion zone variable a global so it can be edited in the editor 
 // 
 // Mikyle:
 // - Fixed enemies spawning inside of each other sometimes
@@ -84,6 +86,10 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio")
 	USoundBase* _spawnerSFX;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
+	float ExclusionaryRadius = 10.f;  //Raise this number to spawn enemies further apart
+
+	int DoorIndex = 0;
 
 public:	
 	// Called every frame
@@ -103,8 +109,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health Drop Values")
 	int HealthDropChanceIncrement = 2;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Wave Values", meta = (ClampMin = "7", ClampMax = "9999"))
-	int Remainder;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
 	int MinAmountOfEnemies = 0;
@@ -121,7 +125,7 @@ public:
 	bool _canIncreaseCost = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Purchasing Values")
-	int _waveDivider = 3;
+	int _wavePriceDivider = 3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Purchasing Values")
 	int _costIncrease = 5;
@@ -130,7 +134,7 @@ public:
 	bool bIsDoorOpen = false;
 
 	UFUNCTION(BlueprintCallable)
-	void WaveFinished();
+	void SpawnerAdditionCheck();
 
 
 
