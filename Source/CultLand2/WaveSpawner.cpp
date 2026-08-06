@@ -90,7 +90,7 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition, flo
 			
 			// ensures that enemies will spawn even if there are other actors in the way, and will adjust their position to prevent collisions if possible
 			FActorSpawnParameters SpawnParams;
-			SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+			SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
 
 			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Spawning enemy at: %s"), *SpawnPos.ToString()));
