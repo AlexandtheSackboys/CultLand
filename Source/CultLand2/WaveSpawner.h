@@ -11,7 +11,7 @@
 // 
 // creation Date: [20/04/26]
 // 
-// last edited: [04/08/26 by Alex Costin]
+// last edited: [06/08/26 by Mikyle Yakub]
 // 
 // Editors Contributions: [
 // Alex Costin:
@@ -28,6 +28,7 @@
 // 
 // Mikyle:
 // - Fixed enemies spawning inside of each other sometimes
+// - Rewrote enemy spacing system such that all enemies are always spaced at least a specified distance away from each other
 // ----------------------------------------------------------	
 
 #pragma once
@@ -88,9 +89,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio")
 	USoundBase* _spawnerSFX;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Values")
-	float ExclusionaryRadius = 10.f;  //Raise this number to spawn enemies further apart
 
 	int _enemyTypeIncrement = 0;
 
