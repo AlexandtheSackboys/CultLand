@@ -34,7 +34,8 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 
 		 int SpawnRemainder = _WaveSpawners.Num() - 1;
 		TArray<FVector> SpawnLocs;
-
+		float farthestSpawn = 0.f;
+		float spacing = 1000.f;
 
 		for (int enemiesSpawned = 0; enemiesSpawned <= _enemiesPerWave; enemiesSpawned++)
 		{
@@ -71,65 +72,24 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 			// figures out the spawn position for each enemy
 			FVector SpawnPos = SpawnPoint->GetActorLocation() + Offset;
 
-			FVector closestSpawn = FVector(9999.f, 9999.f, 9999.f);
+			//Fallback to any offset if there is none
+			if (FVector::Dist(SpawnPos, SpawnPoint->GetActorLocation()) == 0.f) SpawnPos += FVector(1.f, 0.f, 0.f);
 
-			do
-			{
-				for (auto& i : SpawnLocs)
-				{
-					if (FVector::Dist(SpawnPos, i) < FVector::Dist(SpawnPos, closestSpawn))
-					{
-						closestSpawn = i;
-					}
-				}
+			//Figure out the direction from spawn
+			FVector SpawnDir = SpawnPos - SpawnPoint->GetActorLocation();
+			SpawnDir.Normalize();
 
-				if (FVector::Dist(SpawnPos, closestSpawn) < ExclusionaryRadius)
-				{
-					auto dir = SpawnPos - closestSpawn;
-					dir.Normalize();
-					
-					if (!dir.Normalize()) 
-					{
-						dir = FVector(1.f, 0.f, 0.f);            
-					}
+			//the distance from SpawnPoint is determined by the number of enemies already spawned
+			//Because we are spacing them apart by a set figure, we can guarantee that no enemies will ever spawn in the same place
+			SpawnPos = SpawnPoint->GetActorLocation() + (SpawnDir * (spacing * enemiesSpawned));
 
-					SpawnPos += dir * (ExclusionaryRadius - FVector::Dist(SpawnPos, closestSpawn));
-				}
-			}
-			while (FVector::Dist(SpawnPos, closestSpawn) < ExclusionaryRadius);
-
-			//if (FVector::Dist(SpawnPos, closestSpawn) < ExclusionaryRadius)
-			//{
-			//	for (auto& i : SpawnLocs)
-			//	{
-			//		if (FVector::Dist(SpawnPos, i) < FVector::Dist(SpawnPos, closestSpawn))
-			//		{
-			//			closestSpawn = i;
-			//		}
-			//	}
-
-			//	if (FVector::Dist(SpawnPos, closestSpawn) < ExclusionaryRadius)
-			//	{
-			//		auto dir = SpawnPos - closestSpawn;
-			//		dir.Normalize();
-
-			//		if (!dir.Normalize())
-			//		{
-			//			dir = FVector(1.f, 0.f, 0.f);
-			//		}
-
-			//		SpawnPos += dir * (ExclusionaryRadius - FVector::Dist(SpawnPos, closestSpawn));
-			//	}
-			//}
-
+			SpawnPos.Z = SpawnPoint->GetActorLocation().Z;
 			
 			if(_canLimitTypes)
 			{ 
 				LimitEnemyType(_excludeEnemyIndex);
 
 			}
-
-			SpawnLocs.Add(SpawnPos);
 			
 			// ensures that enemies will spawn even if there are other actors in the way, and will adjust their position to prevent collisions if possible
 			FActorSpawnParameters SpawnParams;
