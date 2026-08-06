@@ -54,7 +54,7 @@ public:
 	AWaveSpawner();
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void SpawnWave(float minSpawnPosition, float maxSpawnPosition);
+	void SpawnWave(float minSpawnPosition, float maxSpawnPosition, float spacing);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup")
 	TMap<int, TSubclassOf<AActor>> _enemyWaves;

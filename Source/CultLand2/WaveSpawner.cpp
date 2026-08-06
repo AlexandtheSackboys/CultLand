@@ -23,7 +23,7 @@ void AWaveSpawner::BeginPlay()
 
 }
 
-void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
+void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition, float spacing)
 {
 	if (CurrentEnemyCount <= _lastEnemyCount && _WaveSpawners.Num() >= 0) 
 	{
@@ -33,9 +33,6 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 		 UGameplayStatics::PlaySoundAtLocation(this, _spawnerSFX, GetActorLocation(), GetActorRotation(), 0.5f);
 
 		 int SpawnRemainder = _WaveSpawners.Num() - 1;
-		TArray<FVector> SpawnLocs;
-		float farthestSpawn = 0.f;
-		float spacing = 1000.f;
 
 		for (int enemiesSpawned = 0; enemiesSpawned <= _enemiesPerWave; enemiesSpawned++)
 		{
@@ -67,7 +64,7 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition)
 			FVector Offset;
 			// random offset to spawn enemies in a wider area around the spawn point
 			Offset = FVector(FMath::RandRange(minSpawnPosition, maxSpawnPosition), FMath::RandRange(minSpawnPosition, maxSpawnPosition),
-				SpawnPoint->GetActorLocation().Z);
+				0.f);
 
 			// figures out the spawn position for each enemy
 			FVector SpawnPos = SpawnPoint->GetActorLocation() + Offset;
