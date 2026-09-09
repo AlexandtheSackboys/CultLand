@@ -23,7 +23,7 @@ void AWaveSpawner::BeginPlay()
 
 }
 
-void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition, float spacing)
+void AWaveSpawner::SpawnWave(float spacing)
 {
 	if (CurrentEnemyCount <= _lastEnemyCount && _WaveSpawners.Num() >= 0) 
 	{
@@ -46,6 +46,7 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition, flo
 			// Spawns enemies at random spawners in the _WaveSpawners array, which will increase as the player unlocks new areas and more spawners are added to the array
 			int SpawnIncrement = FMath::RandRange(0, SpawnRemainder);
 			UE_LOG(LogTemp, Warning, TEXT("SpawnRemainder: %i"), SpawnRemainder);
+			ASpawnPoint* enemySpawnPoint = _WaveSpawners[SpawnIncrement];
 			AActor* enemySpawnActor = Cast<AActor>(_WaveSpawners[SpawnIncrement]);
 
 			//if(SpawnIncrement == PreviousSpawnIncrement) 
@@ -63,7 +64,7 @@ void AWaveSpawner::SpawnWave(float minSpawnPosition, float maxSpawnPosition, flo
 			if (!enemySpawnActor) continue;
 
 			// random offset to spawn enemies in a wider area around the spawn point
-			FVector Offset = FVector(FMath::RandRange(minSpawnPosition, maxSpawnPosition), FMath::RandRange(minSpawnPosition, maxSpawnPosition),
+			FVector Offset = FVector(FMath::RandRange(enemySpawnPoint ->MinSpawnPosition, enemySpawnPoint ->MaxSpawnPosition), FMath::RandRange(enemySpawnPoint ->MinSpawnPosition, enemySpawnPoint ->MaxSpawnPosition),
 				0.f);
 
 			// figures out the spawn position for each enemy
