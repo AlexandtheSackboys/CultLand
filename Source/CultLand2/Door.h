@@ -29,6 +29,7 @@
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
 #include "Public/DebugLogManager.h"
+#include "SpawnPoint.h"
 #include "Components/BoxComponent.h"
 #include "Sound/SoundBase.h"
 #include "Door.generated.h"
@@ -49,7 +50,7 @@ public:
 	void OpenDoor();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Setup")
-	TArray<AActor*> SpawnersActivated;
+	TArray<ASpawnPoint*> SpawnersActivated;
 
 protected:
 	// Called when the game starts or when spawned

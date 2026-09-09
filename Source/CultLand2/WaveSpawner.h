@@ -36,12 +36,12 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Public/DebugLogManager.h"
-
+#include "SpawnPoint.h"
 
 #include "WaveSpawner.generated.h"
 
 class ADoor;
-
+class ASpawnPoint;
 
 UCLASS(Blueprintable)
 class CULTLAND2_API AWaveSpawner : public AActor
@@ -60,7 +60,7 @@ public:
 	TMap<int, TSubclassOf<AActor>> _enemyWaves;
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Setup")
-	TArray<AActor*> _WaveSpawners; // array of other wave spawners to spawn enemies at when unlocking new areas
+	TArray<ASpawnPoint*> _WaveSpawners; // array of other wave spawners to spawn enemies at when unlocking new areas
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "Setup")
 	TArray<TSubclassOf<AActor>> _enemyTypes; // Add the different enemy actors to this array in the editor to spawn them in the waves
