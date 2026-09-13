@@ -109,7 +109,9 @@ Sound Dino - https://sounddino.com/en/effects/creak/ // replacement gate/door cr
 
 Zott820 - https://freesound.org/people/Zott820/sounds/209578/ // Purchasing Wacky Weapon
 
+TommasoMotteran - https://freesound.org/people/TommasoMotteran/sounds/850767/ // hovering UI SFX
 
+AudioPapkin - https://freesound.org/people/AudioPapkin/sounds/755057/ // Pausing SFX
 
 
 
